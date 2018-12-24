@@ -29,7 +29,7 @@ endif
 prefix := /usr/local
 
 # define all programs
-PROGRAMS = oled_demo teleinfo-oled
+PROGRAMS = oled_demo
 SOURCES = ${PROGRAMS:=.cpp}
 
 CXX=g++
