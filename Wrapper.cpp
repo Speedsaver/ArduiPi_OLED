@@ -65,6 +65,10 @@ extern "C" void PiOLED_ClearDisplay(){
 	extDisplay->clearDisplay();
 }
 
+extern "C" void PiOLED_Invert( boolean i ){
+	extDisplay->invertDisplay(i);
+}
+
 extern "C" void PiOLED_DrawPixel(int16_t x, int16_t y, uint16_t color){
 	extDisplay->drawPixel(x, y, color);
 }

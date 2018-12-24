@@ -40,6 +40,7 @@ extern boolean PiOLED_Init(int oledType, const char *dev);
 extern void PiOLED_Close();
 extern void PiOLED_Display();
 extern void PiOLED_ClearDisplay();
+extern void PiOLED_Invert();
 extern void PiOLED_DrawPixel(int16_t x, int16_t y, uint16_t color);
 extern void PiOLED_StartScrollLeft(uint8_t start, uint8_t stop);
 extern void PiOLED_StartScrollRight(uint8_t start, uint8_t stop);
