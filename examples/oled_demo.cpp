@@ -165,7 +165,7 @@ void testfilltriangle(void) {
   for (int16_t i=min(display.width(),display.height())/2; i>0; i-=5) {
     display.fillTriangle(display.width()/2, display.height()/2-i,
                      display.width()/2-i, display.height()/2+i,
-                     display.width()/2+i, display.height()/2+i, WHITE);
+                     display.width()/2+i, display.height()/2+i, color);
     if (color == WHITE) color = BLACK;
     else color = WHITE;
     display.display();
