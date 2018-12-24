@@ -29,6 +29,9 @@ Wrapper to C language
 
 #include "ArduiPi_OLED_lib.h"
 
+#define BLACK 0
+#define WHITE 1
+
 #ifdef __cplusplus
 extern "C" {
 #endif
