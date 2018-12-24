@@ -37,10 +37,24 @@ struct s_opts opts = {
 /****
  * All the tests
  ****/
+void testmessages(){
+	PiOLED_ClearDisplay();
+	PiOLED_SetTextSize(2);
+	PiOLED_SetTextColor(WHITE);
+	
+	PiOLED_SetCursor(0,0);
+	PiOLED_Print("Hello,\n   world!\n");
+	PiOLED_SetTextColor2(BLACK, WHITE); // 'inverted' text
+	PiOLED_Printf("%f\n", 3.141592);
+	PiOLED_SetTextColor(WHITE);
+	PiOLED_Printf("0x%8X\n", 0xDEADBEEF);
+
+	PiOLED_Display();
+	sleep(5);
+}
 
 void testscrolltext(){
 	PiOLED_ClearDisplay();
-
 	PiOLED_SetTextSize(2);
 	PiOLED_SetTextColor(WHITE);
 	PiOLED_SetCursor(10,0);
@@ -386,8 +400,9 @@ int main( int ac, char **av ){
 	}
 #endif
 
-	testscrolltext();
+	testmessages();
 	testdrawchar();
+	testscrolltext();
 //	testdrawline();
 //	testdrawrect();
 //	testfillrect();
