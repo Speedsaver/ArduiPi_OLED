@@ -44,6 +44,7 @@ void testdrawline(){
 		puts("Drawline tests\n"
 			 "--------------");
 
+	PiOLED_ClearDisplay();
 	for(i=0; i<PiOLED_DisplayWidth(); i+=4){
 		PiOLED_DrawLine(0, 0, i, PiOLED_DisplayHeight()-1, WHITE);
 		PiOLED_Display();
@@ -81,8 +82,107 @@ void testdrawline(){
 		PiOLED_DrawLine(PiOLED_DisplayWidth()-1, 0, 0, i, WHITE);
 		PiOLED_Display();
 	}
-	for(i=0; i<PiOLED_DisplayWidth(); i+=4){
+	for(i=PiOLED_DisplayWidth(); i>=0; i-=4){
 		PiOLED_DrawLine(PiOLED_DisplayWidth()-1, 0, i, PiOLED_DisplayHeight()-1, WHITE); 
+		PiOLED_Display();
+	}
+	sleep(1);
+}
+
+void testdrawrect(){
+	int16_t i;
+
+	if(opts.verbose)
+		puts("Rectangle tests\n"
+			 "---------------");
+
+	PiOLED_ClearDisplay();
+	for(i=0; i<PiOLED_DisplayHeight()/2; i+=2){
+		PiOLED_DrawRect(i, i, PiOLED_DisplayWidth()-2*i, PiOLED_DisplayHeight()-2*i, WHITE);
+		PiOLED_Display();
+	}
+	sleep(1);
+}
+
+void testfillrect(){
+	int16_t i;
+	uint8_t color = 1;
+
+	if(opts.verbose)
+		puts("Filled Rectangle tests\n"
+			 "----------------------");
+
+	PiOLED_ClearDisplay();
+	for(i=0; i<PiOLED_DisplayHeight()/2; i+=2){
+		PiOLED_FillRect(i, i, PiOLED_DisplayWidth()-2*i, PiOLED_DisplayHeight()-2*i, color++%2);
+		PiOLED_Display();
+	}
+	sleep(1);
+}
+
+void testdrawroundrect(){
+	int16_t i;
+
+	if(opts.verbose)
+		puts("Rounded Rectangle tests\n"
+			 "-----------------------");
+
+	PiOLED_ClearDisplay();
+	for(i=0; i<PiOLED_DisplayHeight()/2-2; i+=4){
+		PiOLED_DrawRoundRect(i, i, PiOLED_DisplayWidth()-2*i, PiOLED_DisplayHeight()-2*i, PiOLED_DisplayHeight()/4, WHITE);
+		PiOLED_Display();
+	}
+	sleep(1);
+}
+
+void testfillroundrect(){
+	int16_t i;
+	uint8_t color = 1;
+
+	if(opts.verbose)
+		puts("Filled Rounded Rectangle tests\n"
+			 "------------------------------");
+
+	PiOLED_ClearDisplay();
+	for(i=0; i<PiOLED_DisplayHeight()/2-2; i+=4){
+		PiOLED_FillRoundRect(i, i, PiOLED_DisplayWidth()-2*i, PiOLED_DisplayHeight()-2*i, PiOLED_DisplayHeight()/4, color++%2);
+		PiOLED_Display();
+	}
+	sleep(1);
+}
+
+void testdrawtriangle(){
+	int16_t i;
+
+	if(opts.verbose)
+		puts("Triangles tests\n"
+			 "---------------");
+
+	PiOLED_ClearDisplay();
+	for (i=min(PiOLED_DisplayWidth(),PiOLED_DisplayHeight())/2; i>0; i-=5){
+		PiOLED_DrawTriangle(
+			PiOLED_DisplayWidth()/2, PiOLED_DisplayHeight()/2-i,
+			PiOLED_DisplayWidth()/2-i, PiOLED_DisplayHeight()/2+i,
+			PiOLED_DisplayWidth()/2+i, PiOLED_DisplayHeight()/2+i, WHITE
+		);
+		PiOLED_Display();
+	}
+	sleep(1);
+}
+
+void testfilltriangle(){
+	int16_t i;
+	uint8_t color = 1;
+
+	if(opts.verbose)
+		puts("Filled Triangles tests\n"
+			 "----------------------");
+	for (i=min(PiOLED_DisplayWidth(),PiOLED_DisplayHeight())/2; i>0; i-=5){
+		PiOLED_FillTriangle(
+			PiOLED_DisplayWidth()/2, PiOLED_DisplayHeight()/2-i,
+			PiOLED_DisplayWidth()/2-i, PiOLED_DisplayHeight()/2+i,
+			PiOLED_DisplayWidth()/2+i, PiOLED_DisplayHeight()/2+i, color++%2
+		);
 		PiOLED_Display();
 	}
 	sleep(1);
@@ -197,11 +297,13 @@ int main( int ac, char **av ){
 	}
 #endif
 
-	  // draw many lines
-	testdrawline();
-	PiOLED_Display();
-	sleep(2);
-	PiOLED_ClearDisplay();
+//	testdrawline();
+//	testdrawrect();
+//	testfillrect();
+//	testdrawroundrect();
+//	testfillroundrect();
+	testdrawtriangle();
+	testfilltriangle();
 
 	PiOLED_Close();	// Free resources
 }

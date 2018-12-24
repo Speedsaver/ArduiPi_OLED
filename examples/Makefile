@@ -24,25 +24,33 @@ prefix := /usr/local
 PROGRAMS = oled_demo
 SOURCES = ${PROGRAMS:=.cpp}
 
+CPROGRAMS = oled_cdemo
+CSOURCES = ${CPROGRAMS:=.c}
+
 CXX=g++
+CC=gcc
+
 # notez-bien : in case of cross or distributed compilation, 
 # -march HAS TO BE CHANGED to match the target architecture.
 # I.e.: for A20 based machines (BananaPI, ...), should be :
 # -march=armv7-a -mfpu=vfpv3-d16 -mfloat-abi=hard
-CFLAGS=-march=native -Ofast -pipe
+CFLAGS=-march=native -Ofast -pipe -Wall
 
-all: ${PROGRAMS}
+all: ${PROGRAMS} ${CPROGRAMS}
 
 ${PROGRAMS}: ${SOURCES}
 	$(CXX) $(CFLAGS) -Wall -I../ -L../ $@.cpp -o $@ -lArduiPi_OLED
 
+${CPROGRAMS}: ${CSOURCES}
+	$(CC) $(CFLAGS) -Wall -I../ -L../ $@.c -o $@ -lArduiPi_OLED
+
 clean:
-	rm -rf $(PROGRAMS)
+	rm -rf $(PROGRAMS) $(CPROGRAMS) 
 
 install: all
 	test -d $(prefix) || mkdir $(prefix)
 	test -d $(prefix)/bin || mkdir $(prefix)/bin
-	for prog in $(PROGRAMS); do \
+	for prog in $(PROGRAMS) $(CPROGRAMS); do \
 	  install -m 0755 $$prog $(prefix)/bin; \
 	done
 
