@@ -30,6 +30,10 @@ All text above, and the splash screen below must be included in any redistributi
 
 02/24/2015  Charles-Henri Hallard 
             added support for 1.3" I2C OLED with SH1106 driver
+
+	--- European time format ---
+23/12/2018  Destroyedlolo (http://destroyedlolo.info)
+			Verbose errors
             
 *********************************************************************/
 
@@ -319,23 +323,22 @@ boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE)
   // Allocate memory for OLED buffer
   poledbuff = (uint8_t *) malloc ( oled_buff_size ); 
   
-  if (!poledbuff)
+  if (!poledbuff){
+  	perror("buffer malloc()");
     return false;
+  }
 
   // Init IO
-  if (!lcd_dev_open(I2C_DEV))
+  if (!lcd_dev_open(I2C_DEV)){
+  	fputs("lcd_dev_open() failed\n", stderr);
     return false;
-    
-  printf("select_oled finished\n");
-  
+  }
+
   return true;
-  
 }
 
 boolean ArduiPi_OLED::init(uint8_t oled_type) {
-    
     return select_oled(oled_type);
-    
 }
 
 void ArduiPi_OLED::close(void) 
@@ -549,8 +552,8 @@ void ArduiPi_OLED::putSeedChar(char C)
         {
             // Character is constructed two pixel at a time using vertical mode from the default 8x8 font
             char c=0x00;
-            char bit1=( seedfont[C-32][i]   >> j) & 0x01;  
-            char bit2=( seedfont[C-32][i+1] >> j) & 0x01;
+            char bit1=( seedfont[(int)C-32][(int)i]   >> j) & 0x01;  
+            char bit2=( seedfont[(int)C-32][(int)i+1] >> j) & 0x01;
            // Each bit is changed to a nibble
             c|=(bit1)?grayH:0x00;
             c|=(bit2)?grayL:0x00;
