@@ -54,6 +54,7 @@ extern void PiOLED_FillCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color)
 extern void PiOLED_FillCircleHelper(int16_t x0, int16_t y0, int16_t r, uint8_t cornername, int16_t delta, uint16_t color);
 extern void PiOLED_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color);
 extern void PiOLED_DrawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
+extern void PiOLED_FillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
 extern void PiOLED_DrawVerticalBargraph(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t percent);
 extern void PiOLED_DrawHorizontalBargraph(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t percent);
 extern void PiOLED_FillScreen(uint16_t color);
