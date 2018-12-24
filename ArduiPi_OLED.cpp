@@ -35,6 +35,7 @@ All text above, and the splash screen below must be included in any redistributi
 23/12/2018  Destroyedlolo (http://destroyedlolo.info)
 			I2C device is passed as argument
 			Verbose errors
+			Remove warnings
             
 *********************************************************************/
 
@@ -546,14 +547,15 @@ void ArduiPi_OLED::putSeedChar(char C)
         C=' '; //Space
     } 
 
-    for(char i=0;i<8;i=i+2)
+    for(int i=0;i<8;i=i+2)
     {
-        for(char j=0;j<8;j++)
+        for(int j=0;j<8;j++)
         {
             // Character is constructed two pixel at a time using vertical mode from the default 8x8 font
             char c=0x00;
             char bit1=( seedfont[(int)C-32][(int)i]   >> j) & 0x01;  
             char bit2=( seedfont[(int)C-32][(int)i+1] >> j) & 0x01;
+
            // Each bit is changed to a nibble
             c|=(bit1)?grayH:0x00;
             c|=(bit2)?grayL:0x00;
