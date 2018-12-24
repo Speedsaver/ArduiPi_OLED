@@ -47,7 +47,6 @@ extern void PiOLED_StartScrollDiagLeft(uint8_t start, uint8_t stop);
 extern void PiOLED_StartScrollDiagRight(uint8_t start, uint8_t stop);
 extern void PiOLED_SetHorizontalScrollProperties(boolean direction, uint8_t startRow, uint8_t endRow, uint8_t startColumn, uint8_t endColumn, uint8_t scrollSpeed);
 extern void PiOLED_StopScroll();
-extern void PiOLED_Print(const char * string);
 extern void PiOLED_DrawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color);
 extern void PiOLED_DrawCircleHelper(int16_t x0, int16_t y0, int16_t r, uint8_t cornername, uint16_t color);
 extern void PiOLED_FillCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color);
@@ -64,6 +63,7 @@ extern void PiOLED_DrawTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, 
 extern void PiOLED_FillTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color);
 extern void PiOLED_DrawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color);
 extern void PiOLED_Write(byte c);
+extern void PiOLED_Print(const char * string);
 extern void PiOLED_DrawChar(int16_t x, int16_t y, unsigned char c, uint16_t color, uint16_t bg, uint8_t size);
 extern void PiOLED_SetCursor(int16_t x, int16_t y);
 extern void PiOLED_SetTextSize(uint8_t s);

@@ -37,6 +37,61 @@ struct s_opts opts = {
 /****
  * All the tests
  ****/
+
+void testscrolltext(){
+	PiOLED_ClearDisplay();
+
+	PiOLED_SetTextSize(2);
+	PiOLED_SetTextColor(WHITE);
+	PiOLED_SetCursor(10,0);
+
+	if(opts.oled == OLED_SH1106_I2C_128x64)
+		PiOLED_Print("No scroll\non SH1106");
+	else
+		PiOLED_Print("scroll");
+	PiOLED_Display();
+
+	PiOLED_StartScrollRight(0x00, 0x0F);
+	sleep(2);
+	PiOLED_StopScroll();
+	sleep(1);
+	PiOLED_StartScrollLeft(0x00, 0x0F);
+	sleep(2);
+	PiOLED_StopScroll();
+	sleep(1);    
+	PiOLED_StartScrollDiagRight(0x00, 0x07);
+	sleep(2);
+	PiOLED_StartScrollDiagLeft(0x00, 0x07);
+	sleep(2);
+	PiOLED_StopScroll();
+
+	sleep(2);
+}
+
+void testdrawchar(){
+	uint8_t i;
+
+	if(opts.verbose)
+		puts("Text drawing tests\n"
+			 "------------------");
+
+	PiOLED_ClearDisplay();
+
+	PiOLED_SetTextSize(1);
+	PiOLED_SetTextColor(WHITE);
+	PiOLED_SetCursor(0,0);
+
+	for(i=0; i<168; i++){
+		if(i == '\n')
+			continue;
+		PiOLED_Write(i);
+		if( i && !(i % 20))
+			PiOLED_Print("\n");
+	}
+	PiOLED_Display();
+	sleep(2);
+}
+
 void testdrawline(){
 	int16_t i;
 
@@ -177,6 +232,8 @@ void testfilltriangle(){
 	if(opts.verbose)
 		puts("Filled Triangles tests\n"
 			 "----------------------");
+
+	PiOLED_ClearDisplay();
 	for (i=min(PiOLED_DisplayWidth(),PiOLED_DisplayHeight())/2; i>0; i-=5){
 		PiOLED_FillTriangle(
 			PiOLED_DisplayWidth()/2, PiOLED_DisplayHeight()/2-i,
@@ -186,6 +243,38 @@ void testfilltriangle(){
 		PiOLED_Display();
 	}
 	sleep(1);
+}
+
+void testdrawcircle(){
+	int16_t i;
+
+	if(opts.verbose)
+		puts("Circle tests\n"
+			 "------------");
+
+	PiOLED_ClearDisplay();
+	for(i=0; i<PiOLED_DisplayHeight(); i+=2){
+		PiOLED_DrawCircle(PiOLED_DisplayWidth()/2, PiOLED_DisplayHeight()/2, i, WHITE);
+		PiOLED_Display();
+	}
+	sleep(1);
+}
+
+void testfillcircle(){
+	int16_t i;
+	uint8_t color = 1;
+
+	if(opts.verbose)
+		puts("Filled Circle tests\n"
+			 "-------------------");
+
+	PiOLED_ClearDisplay();
+	for(i=PiOLED_DisplayHeight(); i>=5; i-=4){
+		PiOLED_FillCircle(PiOLED_DisplayWidth()/2, PiOLED_DisplayHeight()/2, i, color++%2);
+		PiOLED_Display();
+	}
+	sleep(1);
+	
 }
 
 /****
@@ -297,13 +386,17 @@ int main( int ac, char **av ){
 	}
 #endif
 
+	testscrolltext();
+	testdrawchar();
 //	testdrawline();
 //	testdrawrect();
 //	testfillrect();
 //	testdrawroundrect();
 //	testfillroundrect();
-	testdrawtriangle();
-	testfilltriangle();
+//	testdrawtriangle();
+//	testfilltriangle();
+//	testdrawcircle();
+//	testfillcircle();
 
 	PiOLED_Close();	// Free resources
 }
