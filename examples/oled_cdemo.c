@@ -481,7 +481,6 @@ int main( int ac, char **av ){
 #endif
 
 	testmessages();
-#if 0
 	testdrawchar();
 	testscrolltext();
 	testdrawline();
@@ -495,7 +494,6 @@ int main( int ac, char **av ){
 	testfillcircle();
 	testhbar();
 	testvbar();
-#endif
 	testsimplebitmap();
 	testinvert();
 
