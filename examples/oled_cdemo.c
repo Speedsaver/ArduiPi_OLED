@@ -291,6 +291,46 @@ void testfillcircle(){
 	
 }
 
+void testhbar(){
+	int i;
+
+	PiOLED_SetTextSize(1);
+
+	for(i=0; i<=100; i++){
+		PiOLED_ClearDisplay();
+		PiOLED_SetTextColor2(BLACK,WHITE);
+		PiOLED_SetCursor(0,0);
+		PiOLED_Print("Gauge Graph!");
+		PiOLED_SetTextColor(WHITE);
+		PiOLED_SetCursor(20,10);
+		PiOLED_Printf("%03d %%", i);
+		PiOLED_DrawHorizontalBargraph(0,20, (int16_t) PiOLED_DisplayWidth(),10,1, i);
+		PiOLED_Display();
+	}
+
+	sleep(1);
+}
+
+void testvbar(){
+	int i;
+
+	PiOLED_SetTextSize(1);
+
+	for(i=0; i<=100; i++){
+		PiOLED_ClearDisplay();
+		PiOLED_SetTextColor2(BLACK,WHITE);
+		PiOLED_SetCursor(0,0);
+		PiOLED_Print("Gauge Graph!");
+		PiOLED_SetTextColor(WHITE);
+		PiOLED_SetCursor(20,10);
+		PiOLED_Printf("%03d %%", i);
+		PiOLED_DrawVerticalBargraph(114,0,8,(int16_t) PiOLED_DisplayHeight(),1, i);
+		PiOLED_Display();
+	}
+
+	sleep(1);
+}
+
 /****
  *  Parse arguments
  ****/
@@ -401,17 +441,21 @@ int main( int ac, char **av ){
 #endif
 
 	testmessages();
+#if 0
 	testdrawchar();
 	testscrolltext();
-//	testdrawline();
-//	testdrawrect();
-//	testfillrect();
-//	testdrawroundrect();
-//	testfillroundrect();
-//	testdrawtriangle();
-//	testfilltriangle();
-//	testdrawcircle();
-//	testfillcircle();
+	testdrawline();
+	testdrawrect();
+	testfillrect();
+	testdrawroundrect();
+	testfillroundrect();
+	testdrawtriangle();
+	testfilltriangle();
+	testdrawcircle();
+	testfillcircle();
+#endif
+	testhbar();
+	testvbar();
 
 	PiOLED_Close();	// Free resources
 }
