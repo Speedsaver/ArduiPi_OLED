@@ -7,8 +7,10 @@ CAUTION :
 - the Makefile has to be changed if you're cross compiling or if you're using heterogeneous distributed compilation.
 - SPI is not supported : some sequels of the previous code remain but may be cleaned in future release (but if someone wants to take care of SPI in a portable way).
 - I discovered lot of issues, misbehaviours in includes dependencies and in Makefile themselves. I corrected the most obvious ones but some work remains : if you're experiencing "/bizarre features/" ((tm) micro$oft), do
-~~~~ make clean
-make ~~~~
+~~~~
+make clean
+make
+~~~~
 
 
 This version has been tested on a BananaPI running Gentoo using an SSD1306 0.96'' screen.
