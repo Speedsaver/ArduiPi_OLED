@@ -153,7 +153,7 @@ class ArduiPi_OLED : public Adafruit_GFX
  public:
   ArduiPi_OLED();
 
-  boolean init(uint8_t OLED_TYPE);
+  boolean init(uint8_t OLED_TYPE, const char *device);
 
   boolean oled_is_spi_proto(uint8_t OLED_TYPE); /* to know protocol before init */
   boolean select_oled(uint8_t OLED_TYPE, const char *device);

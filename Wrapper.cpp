@@ -43,7 +43,7 @@ All text above, and the splash screen below must be included in any redistributi
 ArduiPi_OLED *extDisplay = NULL;
 
 // Initialize the wrapper ( allocate the ArduiPi_OLED object and init display hardware type ).
-extern "C" void Wrapper_Init(int oledType)
+extern "C" void Wrapper_Init(int oledType, const char *dev)
 {
 	if (extDisplay != NULL) return;
 
@@ -51,7 +51,7 @@ extern "C" void Wrapper_Init(int oledType)
 
 	extDisplay = new ArduiPi_OLED();
 
-    if (!extDisplay->init(oledType))
+    if (!extDisplay->init(oledType, dev))
 			exit(EXIT_FAILURE);
     
 	extDisplay->begin();
@@ -218,10 +218,10 @@ extern "C" void Wrapper_SetTextWrap(boolean w)
 
 extern "C" int16_t Wrapper_DisplayWidth()
 {
-	extDisplay->width();
+	return extDisplay->width();
 }
 
 extern "C" int16_t Wrapper_DisplayHeight()
 {
-	extDisplay->height();
+	return extDisplay->height();
 }

@@ -337,8 +337,8 @@ boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE, const char *dev){
   return true;
 }
 
-boolean ArduiPi_OLED::init(uint8_t oled_type) {
-    return select_oled(oled_type, I2C_DEV);
+boolean ArduiPi_OLED::init(uint8_t oled_type, const char *dev){
+    return select_oled(oled_type, dev);
 }
 
 void ArduiPi_OLED::close(void) 

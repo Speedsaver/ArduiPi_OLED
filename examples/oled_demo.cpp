@@ -21,7 +21,9 @@ All text above, and the splash screen must be included in any redistribution
 						the command line (no more #define on compilation needed)
 						ArduiPi project documentation http://hallard.me/arduipi
 
-						
+	--- European time format ---
+23/12/2018  Destroyedlolo (http://destroyedlolo.info)
+	The I2C device is passed in argument to lcd_dev_open()
 *********************************************************************/
 
 #include "ArduiPi_OLED_lib.h"
@@ -31,7 +33,7 @@ All text above, and the splash screen must be included in any redistribution
 #include <getopt.h>
 
 #define PRG_NAME        "oled_demo"
-#define PRG_VERSION     "1.1"
+#define PRG_VERSION     "1.2"
 
 // Instantiate the display
 ArduiPi_OLED display;
@@ -42,17 +44,17 @@ struct s_opts
 {
 	int oled;
 	int verbose;
-} ;
+	const char *port;
+};
+
+struct s_opts opts = {
+	OLED_SH1106_I2C_128x64,	// Default oled
+	true,					// Not verbose
+	"/dev/i2c-2"			// default port
+};
 
 int sleep_divisor = 1 ;
 	
-// default options values
-s_opts opts = {
-	//OLED_SH1106_I2C_128x64,	// Default oled
-    OLED_SH1106_I2C_128x64,
-  true										// Not verbose
-};
-
 #define NUMFLAKES 10
 #define XPOS 0
 #define YPOS 1
@@ -306,32 +308,35 @@ void parse_args(int argc, char *argv[])
 {
 	static struct option longOptions[] =
 	{
-		{"oled"	  , required_argument,0, 'o'},
-		{"verbose", no_argument,	  	0, 'v'},
-		{"help"		, no_argument, 			0, 'h'},
+		{"oled", required_argument, 0, 'o'},
+		{"port", required_argument, 0, 'p'},
+		{"verbose", no_argument, 0, 'v'},
+		{"help", no_argument, 0, 'h'},
 		{0, 0, 0, 0}
 	};
 
 	int optionIndex = 0;
 	int c;
 
-	while (1) 
-	{
+	while(1){
 		/* no default error messages printed. */
 		opterr = 0;
 
-    c = getopt_long(argc, argv, "vho:", longOptions, &optionIndex);
-
+		c = getopt_long(argc, argv, "vho:p:", longOptions, &optionIndex);
 		if (c < 0)
 			break;
 
-		switch (c) 
-		{
+		switch(c){
+			case 'p': 
+				opts.port = strdup(optarg);
+				if(!opts.port){
+					fprintf(stderr,"Can't duplicate port ... Leaving");
+					exit( EXIT_FAILURE );
+				}
+				break;
 			case 'v': opts.verbose = true	;	break;
-
 			case 'o':
 				opts.oled = (int) atoi(optarg);
-				
 				if (opts.oled < 0 || opts.oled >= OLED_LAST_OLED )
 				{
 						fprintf(stderr, "--oled %d ignored must be 0 to %d.\n", opts.oled, OLED_LAST_OLED-1);
@@ -339,12 +344,10 @@ void parse_args(int argc, char *argv[])
 						opts.oled = 0;
 				}
 			break;
-
 			case 'h':
 				usage(argv[0]);
 				exit(EXIT_SUCCESS);
 			break;
-			
 			case '?':
 			default:
 				fprintf(stderr, "Unrecognized option.\n");
@@ -358,6 +361,7 @@ void parse_args(int argc, char *argv[])
 		printf("%s v%s\n", PRG_NAME, PRG_VERSION);
 		printf("-- OLED params -- \n");
 		printf("Oled is    : %s\n", oled_type_str[opts.oled]);
+		printf("On 		: %s\n", opts.port);
 		printf("-- Other Stuff -- \n");
 		printf("verbose is : %s\n", opts.verbose? "yes" : "no");
 		printf("\n");
@@ -380,9 +384,8 @@ int main(int argc, char **argv)
 	// Get OLED type
 	parse_args(argc, argv);
 
-    if ( !display.init(opts.oled) )
+    if ( !display.init(opts.oled, opts.port) )
 			exit(EXIT_FAILURE);
-
 	display.begin();
 	
   // init done
