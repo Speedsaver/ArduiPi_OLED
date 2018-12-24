@@ -14,21 +14,13 @@
 # 08/26/2015	Lorenzo Delana (lorenzo.delana@gmail.com)
 #							added bananapi specific CCFLAGS and conditional macro BANANPI
 #
+#	--- European times format ---
+# 23/12/2018    Destroyedlolo (http://destroyedlolo.info)
+# 		Make platform agnostic
 # *********************************************************************
 
 # Makefile itself dir
 ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-
-# hw platform as from autogen.sh choose
-HWPLAT:=$(shell cat $(ROOT_DIR)/hwplatform)
-
-# sets CCFLAGS hw platform dependant
-ifeq ($(HWPLAT),BananaPI)
-	CCFLAGS=-Wall -Ofast -mfpu=vfpv4 -mfloat-abi=hard -march=armv7 -mtune=cortex-a7 -DBANANAPI
-else # fallback to raspberry
-	# The recommended compiler flags for the Raspberry Pi
-	CCFLAGS=-Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s
-endif
 
 # Where you want it installed when you do 'make install'
 PREFIX=/usr/local
@@ -41,6 +33,12 @@ LIB=libArduiPi_OLED
 # shared library name
 LIBSUB=.0
 LIBNAME=$(LIB).so.2${LIBSUB}
+
+# notez-bien : in case of cross or distributed compilation, 
+# -march HAS TO BE CHANGED to match the target architecture.
+# I.e.: for A20 based machines (BananaPI, ...), should be :
+# -march=armv7-a -mfpu=vfpv3-d16 -mfloat-abi=hard
+CFLAGS=-march=native -Ofast -pipe
 
 CXX=g++
 CC=gcc
@@ -57,16 +55,16 @@ ArduiPi_OLED: ArduiPi_OLED.o Adafruit_GFX.o Wrapper.o dev_io.o
 
 # Library parts (use -fno-rtti flag to avoid link problem)
 ArduiPi_OLED.o: ArduiPi_OLED.cpp dev_io.h ArduiPi_OLED_lib.h ArduiPi_OLED.h Adafruit_GFX.h
-	$(CXX) -Wall -fPIC -fno-rtti $(CFLAGS) -c $^
+	$(CXX) -Wall -fPIC -fno-rtti $(CCFLAGS) -c $^
 
 Adafruit_GFX.o: Adafruit_GFX.cpp dev_io.h ArduiPi_OLED_lib.h
-	$(CXX) -Wall -fPIC -fno-rtti $(CFLAGS) -c $^
+	$(CXX) -Wall -fPIC -fno-rtti $(CCFLAGS) -c $^
 
 dev_io.o: dev_io.c dev_io.h
 	$(CC) -Wall -fPIC $(CFLAGS) -c $^
 
 Wrapper.o: Wrapper.cpp ArduiPi_OLED_lib.h Adafruit_GFX.h ArduiPi_OLED.h dev_io.h
-	$(CXX) -Wall -fPIC -fno-rtti $(CFLAGS) -c $^
+	$(CXX) -Wall -fPIC -fno-rtti $(CCFLAGS) -c $^
 
 # Install the library to LIBPATH
 install: 

@@ -10,21 +10,13 @@
 # 08/26/2015    Lorenzo Delana (lorenzo.delana@gmail.com)
 #                                                       added bananapi specific CCFLAGS and conditional macro BANANPI
 #
+#	--- European times format ---
+# 23/12/2018    Destroyedlolo (http://destroyedlolo.info)
+# 		Make platform agnostic
 # *********************************************************************
 
 # Makefile itself dir
 ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-
-# hw platform as from autogen.sh choose
-HWPLAT:=$(shell cat $(ROOT_DIR)/../hwplatform)
-
-# sets CCFLAGS hw platform dependant
-ifeq ($(HWPLAT),BananaPI)
-        CCFLAGS=-Ofast -mfpu=vfpv4 -mfloat-abi=hard -march=armv7 -mtune=cortex-a7 -DBANANAPI
-else # fallback to raspberry
-        # The recommended compiler flags for the Raspberry Pi
-        CCFLAGS=-Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s
-endif
 
 prefix := /usr/local
 
@@ -33,7 +25,11 @@ PROGRAMS = oled_demo
 SOURCES = ${PROGRAMS:=.cpp}
 
 CXX=g++
-CFLAGS=${CCFLAGS}
+# notez-bien : in case of cross or distributed compilation, 
+# -march HAS TO BE CHANGED to match the target architecture.
+# I.e.: for A20 based machines (BananaPI, ...), should be :
+# -march=armv7-a -mfpu=vfpv3-d16 -mfloat-abi=hard
+CFLAGS=-march=native -Ofast -pipe
 
 all: ${PROGRAMS}
 
