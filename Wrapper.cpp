@@ -32,23 +32,25 @@ All text above, and the splash screen below must be included in any redistributi
 ArduiPi_OLED *extDisplay = NULL;
 
 // Initialize the wrapper ( allocate the ArduiPi_OLED object and init display hardware type ).
-extern "C" void PiOLED_Init(int oledType, const char *dev){
-	if (extDisplay != NULL)
-		return;
+extern "C" boolean PiOLED_Init(int oledType, const char *dev){
+	if (extDisplay != NULL)	// Already done
+		return 1;
 
 	if (oledType < 0 || oledType >= OLED_LAST_OLED)
-		oledType = 0;
+		oledType = 3;
 
 	extDisplay = new ArduiPi_OLED();
 
     if (!extDisplay->init(oledType, dev))
-			exit(EXIT_FAILURE);
+		return 0;
     
 	extDisplay->begin();
 
 	// init done
 	extDisplay->clearDisplay();   // clears the screen  buffer
-	extDisplay->display();   		// display it (clear display)	
+	extDisplay->display();   		// display it (clear display)
+
+	return 1;
 }
 
 extern "C" void PiOLED_Close(){
@@ -83,7 +85,7 @@ extern "C" void PiOLED_StartScrollDiagRight(uint8_t start, uint8_t stop){
 	extDisplay->startscrolldiagright(start, stop);
 }
 
-extern "C" void PiOLED_SetHorizontalScrollProperties(bool direction, uint8_t startRow, uint8_t endRow, uint8_t startColumn, uint8_t endColumn, uint8_t scrollSpeed){
+extern "C" void PiOLED_SetHorizontalScrollProperties(boolean direction, uint8_t startRow, uint8_t endRow, uint8_t startColumn, uint8_t endColumn, uint8_t scrollSpeed){
 	extDisplay->setHorizontalScrollProperties(direction, startRow, endRow, startColumn, endColumn, scrollSpeed);
 }
 

@@ -33,7 +33,7 @@ Wrapper to C language
 extern "C" {
 #endif
 
-extern void PiOLED_Init(int oledType, const char *dev);
+extern boolean PiOLED_Init(int oledType, const char *dev);
 extern void PiOLED_Close();
 extern void PiOLED_Display();
 extern void PiOLED_ClearDisplay();
@@ -42,7 +42,7 @@ extern void PiOLED_StartScrollLeft(uint8_t start, uint8_t stop);
 extern void PiOLED_StartScrollRight(uint8_t start, uint8_t stop);
 extern void PiOLED_StartScrollDiagLeft(uint8_t start, uint8_t stop);
 extern void PiOLED_StartScrollDiagRight(uint8_t start, uint8_t stop);
-extern void PiOLED_SetHorizontalScrollProperties(bool direction, uint8_t startRow, uint8_t endRow, uint8_t startColumn, uint8_t endColumn, uint8_t scrollSpeed);
+extern void PiOLED_SetHorizontalScrollProperties(boolean direction, uint8_t startRow, uint8_t endRow, uint8_t startColumn, uint8_t endColumn, uint8_t scrollSpeed);
 extern void PiOLED_StopScroll();
 extern void PiOLED_Print(const char * string);
 extern void PiOLED_DrawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color);
