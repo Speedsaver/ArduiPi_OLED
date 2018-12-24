@@ -23,13 +23,17 @@ All text above, and the splash screen must be included in any redistribution
             
 07/26/2013  Charles-Henri Hallard (http://hallard.me)
             modified name for generic library using different OLED type
+
+	--- European time format ---
+23/12/2018  Destroyedlolo (http://destroyedlolo.info)
+			I2C device is passed as argument
  
 *********************************************************************/
 
 #ifndef _ArduiPi_OLED_H
 #define _ArduiPi_OLED_H
 
-#include "./Adafruit_GFX.h"
+#include "Adafruit_GFX.h"
 
 #define BLACK 0
 #define WHITE 1
@@ -152,7 +156,7 @@ class ArduiPi_OLED : public Adafruit_GFX
   boolean init(uint8_t OLED_TYPE);
 
   boolean oled_is_spi_proto(uint8_t OLED_TYPE); /* to know protocol before init */
-  boolean select_oled(uint8_t OLED_TYPE) ;
+  boolean select_oled(uint8_t OLED_TYPE, const char *device);
   
   void begin(void);
   void close(void);

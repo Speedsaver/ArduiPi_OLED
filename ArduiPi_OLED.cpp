@@ -33,6 +33,7 @@ All text above, and the splash screen below must be included in any redistributi
 
 	--- European time format ---
 23/12/2018  Destroyedlolo (http://destroyedlolo.info)
+			I2C device is passed as argument
 			Verbose errors
             
 *********************************************************************/
@@ -248,12 +249,10 @@ boolean ArduiPi_OLED::oled_is_spi_proto(uint8_t OLED_TYPE)
     
   // default 
   return false;
-  
 }
 
 // initializer for OLED Type
-boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE) 
-{
+boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE, const char *dev){
   // Default type
   oled_width  = 128;
   oled_height = 64;
@@ -303,6 +302,7 @@ boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE)
     
     // houston, we have a problem
     default:
+	  fputs("Unknown display", stderr);
       return false;
     break;
   }
@@ -329,7 +329,7 @@ boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE)
   }
 
   // Init IO
-  if (!lcd_dev_open(I2C_DEV)){
+  if (!lcd_dev_open(dev)){
   	fputs("lcd_dev_open() failed\n", stderr);
     return false;
   }
@@ -338,7 +338,7 @@ boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE)
 }
 
 boolean ArduiPi_OLED::init(uint8_t oled_type) {
-    return select_oled(oled_type);
+    return select_oled(oled_type, I2C_DEV);
 }
 
 void ArduiPi_OLED::close(void) 

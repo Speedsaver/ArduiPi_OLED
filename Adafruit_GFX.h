@@ -18,10 +18,17 @@
 						the command line (no more #define on compilation needed)
 						ArduiPi project documentation http://hallard.me/arduipi
 
+	--- European time format ---
+23/12/2018  Destroyedlolo (http://destroyedlolo.info)
+			correct missing include
+
  ******************************************************************/
 
 #ifndef _ADAFRUIT_GFX_H
 #define _ADAFRUIT_GFX_H
+
+#include <stdint.h>
+#include "ArduiPi_OLED_lib.h"
 
 #define swap(a, b) { int16_t t = a; a = b; b = t; }
 

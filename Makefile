@@ -56,7 +56,7 @@ ArduiPi_OLED: ArduiPi_OLED.o Adafruit_GFX.o Wrapper.o dev_io.o
 	@ln -sf ${LIBNAME} ${LIB}.so
 
 # Library parts (use -fno-rtti flag to avoid link problem)
-ArduiPi_OLED.o: ArduiPi_OLED.cpp dev_io.h ArduiPi_OLED_lib.h
+ArduiPi_OLED.o: ArduiPi_OLED.cpp dev_io.h ArduiPi_OLED_lib.h ArduiPi_OLED.h Adafruit_GFX.h
 	$(CXX) -Wall -fPIC -fno-rtti $(CFLAGS) -c $^
 
 Adafruit_GFX.o: Adafruit_GFX.cpp dev_io.h ArduiPi_OLED_lib.h
