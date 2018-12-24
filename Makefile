@@ -39,7 +39,8 @@ LIBDIR=$(PREFIX)/lib
 # lib name 
 LIB=libArduiPi_OLED
 # shared library name
-LIBNAME=$(LIB).so.1.0
+LIBSUB=.0
+LIBNAME=$(LIB).so.2${LIBSUB}
 
 CXX=g++
 CC=gcc
@@ -50,7 +51,9 @@ all: ArduiPi_OLED
 
 # Make the library
 ArduiPi_OLED: ArduiPi_OLED.o Adafruit_GFX.o Wrapper.o dev_io.o
-	$(CXX) -shared -Wl,-soname,$(LIB).so.1 $(CFLAGS) $(LDFLAGS)  -o ${LIBNAME} $^
+	$(CXX) -shared -Wl,-soname,$(LIB).so.2 $(CFLAGS) $(LDFLAGS)  -o ${LIBNAME} $^
+	@ln -sf ${LIBNAME} ${LIB}.so.2
+	@ln -sf ${LIBNAME} ${LIB}.so
 
 # Library parts (use -fno-rtti flag to avoid link problem)
 ArduiPi_OLED.o: ArduiPi_OLED.cpp
@@ -59,8 +62,8 @@ ArduiPi_OLED.o: ArduiPi_OLED.cpp
 Adafruit_GFX.o: Adafruit_GFX.cpp
 	$(CXX) -Wall -fPIC -fno-rtti $(CFLAGS) -c $^
 
-dev_io.o: dev_io.c
-	$(CC) -Wall -fPIC -fno-rtti $(CFLAGS) -c $^
+dev_io.o: dev_io.c dev_io.h
+	$(CC) -Wall -fPIC $(CFLAGS) -c $^
 
 Wrapper.o: Wrapper.cpp
 	$(CC) -Wall -fPIC -fno-rtti $(CFLAGS) -c $^
@@ -70,7 +73,7 @@ install:
 	@echo "[Install Library]"
 	@if ( test ! -d $(PREFIX)/lib ) ; then mkdir -p $(PREFIX)/lib ; fi
 	@install -m 0755 ${LIBNAME} ${LIBDIR}
-	@ln -sf ${LIBDIR}/${LIBNAME} ${LIBDIR}/${LIB}.so.1
+	@ln -sf ${LIBDIR}/${LIBNAME} ${LIBDIR}/${LIB}.so.2
 	@ln -sf ${LIBDIR}/${LIBNAME} ${LIBDIR}/${LIB}.so
 	@ldconfig
 	@rm -rf ${LIB}.*
