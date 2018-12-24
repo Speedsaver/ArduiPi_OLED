@@ -1,3 +1,17 @@
+/*
+ * DEV_IO header
+ *
+ * 11/04/2018  jonesman
+ * 	trying to convert IO to /dev/i2c
+ *
+ * 23/12/2018  Destroyedlolo (http://destroyedlolo.info)
+ * 	The I2C device is passed in argument to lcd_dev_open()
+ */
+
+#ifndef DEV_IO_H
+#define DEV_IO_H
+
+#include <stdint.h>
 
 #define DEV_TYPE_I2C 1
 #define DEV_TYPE_SPI 2
@@ -15,14 +29,12 @@
 extern "C" {
 #endif
 
-    int lcd_dev_open();
-
+    int lcd_dev_open(const char *dev);
     int lcd_dev_write(uint8_t* data, int len);
-
     void lcd_dev_close();
-
 
 #if defined (__cplusplus)
 }
 #endif
 
+#endif

@@ -323,7 +323,7 @@ boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE)
     return false;
 
   // Init IO
-  if (!lcd_dev_open())
+  if (!lcd_dev_open(I2C_DEV))
     return false;
     
   printf("select_oled finished\n");

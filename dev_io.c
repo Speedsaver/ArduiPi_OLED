@@ -1,3 +1,12 @@
+/*
+ * Handle I2C
+ *
+ * 11/04/2018  jonesman
+ * 	trying to convert IO to /dev/i2c
+ *
+ * 23/12/2018  Destroyedlolo (http://destroyedlolo.info)
+ * 	The I2C device is passed in argument to lcd_dev_open()
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,13 +21,12 @@
 
 int i2c_fd = -1;
 
-
-int lcd_dev_open() {
+int lcd_dev_open(const char *dev) {
  
     switch(DEV_TYPE) {
         
         case DEV_TYPE_I2C:
-            i2c_fd = open(I2C_DEV, O_RDWR);
+            i2c_fd = open(dev, O_RDWR);
             if(ioctl(i2c_fd, I2C_SLAVE, I2C_ADDR) < 0) {
                 printf("I2C ioctl error : %s\r\n", strerror(errno));
                 return 0;
