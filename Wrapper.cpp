@@ -93,10 +93,6 @@ extern "C" void PiOLED_StopScroll(){
 	extDisplay->stopscroll();
 }
 
-extern "C" void PiOLED_Print(const char * string){
-	extDisplay->print(string);
-}
-
 extern "C" void PiOLED_DrawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color){
 	extDisplay->drawCircle(x0, y0, r, color);
 }
@@ -159,6 +155,19 @@ extern "C" void PiOLED_DrawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, i
 
 extern "C" void PiOLED_Write(byte c){
 	extDisplay->write(c);
+}
+
+extern "C" void PiOLED_Print(const char *string){
+	extDisplay->print(string);
+}
+
+extern "C" void PiOLED_Printf(const char *format, ...){
+	va_list args;
+	va_start (args, format);
+
+	extDisplay->vprintf(format, args);
+
+	va_end (args);
 }
 
 extern "C" void PiOLED_DrawChar(int16_t x, int16_t y, unsigned char c, uint16_t color, uint16_t bg, uint8_t size){

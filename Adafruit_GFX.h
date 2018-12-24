@@ -22,6 +22,8 @@
 23/12/2018  Destroyedlolo (http://destroyedlolo.info)
 			correct missing include
 
+24/12/2018  Destroyedlolo (http://destroyedlolo.info)
+			Add vprintf
  ******************************************************************/
 
 #ifndef _ADAFRUIT_GFX_H
@@ -46,6 +48,7 @@ class Adafruit_GFX {
 	
 	// the printf function
 	void printf( const char * format, ...);
+	void vprintf( const char * format, va_list ap);
 	void print( const char * string) ;
 
   // these are 'generic' drawing functions, so we can share them!

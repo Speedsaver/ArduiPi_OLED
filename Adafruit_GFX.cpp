@@ -21,6 +21,11 @@
 						Created Draw Bargraph feature
 						Added printf feature
 
+	--- European time format ---
+
+24/12/2018  Destroyedlolo (http://destroyedlolo.info)
+			Add vprintf
+
  ******************************************************************/
 
 #include "./ArduiPi_OLED_lib.h"
@@ -40,23 +45,24 @@ void Adafruit_GFX::constructor(int16_t w, int16_t h)
 }
 
 // the printf function
-void Adafruit_GFX::printf( const char * format, ...) 
-{
+void Adafruit_GFX::printf( const char * format, ...){
+	va_list args;
+	va_start (args, format);
 
-  char buffer[64];
+	this->vprintf(format, args);
+
+	va_end (args);
+}
+
+void Adafruit_GFX::vprintf( const char * format, va_list args){
+	char buffer[64];
 	char * p = buffer;
 	int n;
-  va_list args;
-  va_start (args, format);
-  vsnprintf (buffer, sizeof(buffer)-1, format, args);
+	vsnprintf (buffer, sizeof(buffer)-1, format, args);
 	n = strlen(buffer);
 		
 	while (*p != 0 && n-->0)
-	{
 		write ( (uint8_t) *p++);
-	}
-
-  va_end (args);
 }
 
 // the print function
