@@ -63,7 +63,7 @@ Adafruit_GFX.o: Adafruit_GFX.cpp dev_io.h ArduiPi_OLED_lib.h
 dev_io.o: dev_io.c dev_io.h
 	$(CC) -Wall -fPIC $(CFLAGS) -c $^
 
-Wrapper.o: Wrapper.cpp ArduiPi_OLED_lib.h Adafruit_GFX.h ArduiPi_OLED.h dev_io.h
+Wrapper.o: Wrapper.cpp ArduiPi_OLED_lib.h Adafruit_GFX.h ArduiPi_OLED.h ArduiPi_OLED_C.h dev_io.h
 	$(CXX) -Wall -fPIC -fno-rtti $(CCFLAGS) -c $^
 
 # Install the library to LIBPATH
