@@ -68,6 +68,7 @@ extern void PiOLED_DrawChar(int16_t x, int16_t y, unsigned char c, uint16_t colo
 extern void PiOLED_SetCursor(int16_t x, int16_t y);
 extern void PiOLED_SetTextSize(uint8_t s);
 extern void PiOLED_SetTextColor(uint16_t c);
+extern void PiOLED_SetTextColor2(uint16_t c, uint16_t b);
 extern void PiOLED_SetTextWrap(boolean w);
 extern int16_t PiOLED_DisplayWidth();
 extern int16_t PiOLED_DisplayHeight();

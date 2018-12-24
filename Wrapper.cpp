@@ -177,6 +177,10 @@ extern "C" void PiOLED_SetTextColor(uint16_t c){
 	extDisplay->setTextColor(c);
 }
 
+extern "C" void PiOLED_SetTextColor2(uint16_t c, uint16_t b){
+	extDisplay->setTextColor(c,b);
+}
+
 extern "C" void PiOLED_SetTextWrap(boolean w){
 	extDisplay->setTextWrap(w);
 }
