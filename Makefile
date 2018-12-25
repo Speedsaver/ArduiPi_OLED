@@ -31,7 +31,7 @@ LIBDIR=$(PREFIX)/lib
 # lib name 
 LIB=libArduiPi_OLED
 # shared library name
-LIBSUB=.1
+LIBSUB=.2
 LIBNAME=$(LIB).so.2${LIBSUB}
 
 # notez-bien : in case of cross or distributed compilation, 
@@ -94,6 +94,6 @@ uninstall:
 	
 # clear build files
 clean:
-	rm -rf *.o ${LIB}.* ${LIBDIR}/${LIB}.*
+	rm -rf *.o *.gch ${LIB}.* ${LIBDIR}/${LIB}.*
 
 
