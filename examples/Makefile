@@ -24,7 +24,7 @@ prefix := /usr/local
 PROGRAMS = oled_demo
 SOURCES = ${PROGRAMS:=.cpp}
 
-CPROGRAMS = oled_cdemo
+CPROGRAMS = oled_cdemo oled_OnOff
 CSOURCES = ${CPROGRAMS:=.c}
 
 CXX=g++

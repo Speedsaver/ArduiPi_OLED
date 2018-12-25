@@ -38,6 +38,7 @@ All text above, and the splash screen below must be included in any redistributi
 			Remove warnings
 25/12/2018  Destroyedlolo (http://destroyedlolo.info)
 			remove SPI
+			Add OnOff()
             
 *********************************************************************/
 
@@ -490,6 +491,10 @@ void ArduiPi_OLED::begin( void )
   
   // wait 100ms
   usleep(100000);
+}
+
+void ArduiPi_OLED::OnOff( boolean i ){
+	sendCommand(i ? SSD_Display_On : SSD_Display_Off);
 }
 
 // Only valid for Seeed 96x96 OLED

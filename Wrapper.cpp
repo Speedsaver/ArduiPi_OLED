@@ -37,7 +37,7 @@ extern "C" boolean PiOLED_Init(int oledType, const char *dev){
 		return 1;
 
 	if (oledType < 0 || oledType >= OLED_LAST_OLED)
-		oledType = 3;
+		oledType = 0;
 
 	extDisplay = new ArduiPi_OLED();
 
@@ -67,6 +67,10 @@ extern "C" void PiOLED_ClearDisplay(){
 
 extern "C" void PiOLED_Invert( boolean i ){
 	extDisplay->invertDisplay(i);
+}
+
+extern "C" void PiOLED_OnOff( boolean i ){
+	extDisplay->OnOff(i);
 }
 
 extern "C" void PiOLED_DrawPixel(int16_t x, int16_t y, uint16_t color){

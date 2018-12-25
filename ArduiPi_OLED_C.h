@@ -22,6 +22,8 @@ Wrapper to C language
 	--- European time format ---
 24/12/2018	Destroyedlolo (http://destroyedlolo.info)
 	Add this missing header
+25/12/2018	Destroyedlolo (http://destroyedlolo.info)
+	Add OnOff()
 *********************************************************************/
 
 #ifndef ARDUIPI_OLED_C_H
@@ -41,6 +43,7 @@ extern void PiOLED_Close();
 extern void PiOLED_Display();
 extern void PiOLED_ClearDisplay();
 extern void PiOLED_Invert( boolean );
+extern void PiOLED_OnOff( boolean );
 extern void PiOLED_DrawPixel(int16_t x, int16_t y, uint16_t color);
 extern void PiOLED_StartScrollLeft(uint8_t start, uint8_t stop);
 extern void PiOLED_StartScrollRight(uint8_t start, uint8_t stop);

@@ -171,6 +171,7 @@ class ArduiPi_OLED : public Adafruit_GFX
   void setBrightness(uint8_t Brightness);
   void invertDisplay(uint8_t i);
   void display();
+  void OnOff( boolean );
   
   void setSeedTextXY(unsigned char Row, unsigned char Column);
   void putSeedChar(char C);
