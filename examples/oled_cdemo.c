@@ -423,8 +423,8 @@ void parse_args(int argc, char *argv[]){
 			opts.oled = atoi(optarg);
 			if (opts.oled < 0 || opts.oled >= OLED_LAST_OLED ){
 				fprintf(stderr, "--oled %d ignored must be 0 to %d.\n", opts.oled, OLED_LAST_OLED-1);
-				fprintf(stderr, "--oled set to 3 now\n");
-				opts.oled = 3;
+				fprintf(stderr, "--oled set to 0 now\n");
+				opts.oled = 0;
 			}
 			break;
 		case 'h':

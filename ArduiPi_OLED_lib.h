@@ -12,7 +12,11 @@
             
  Written by Charles-Henri Hallard for Fun .
  All text above must be included in any redistribution.
-            
+
+	--- European time format ---
+25/12/2018	Destroyedlolo (http://destroyedlolo.info)
+	Remove SPI as not supported
+
  ******************************************************************/
 
 #ifndef _ArduiPi_OLED_lib_H
@@ -27,20 +31,16 @@
 #include "dev_io.h"
 
 // Oled supported display
-#define OLED_ADAFRUIT_SPI_128x32  0
-#define OLED_ADAFRUIT_SPI_128x64  1
-#define OLED_ADAFRUIT_I2C_128x32  2
-#define OLED_ADAFRUIT_I2C_128x64  3
-#define OLED_SEEED_I2C_128x64     4
-#define OLED_SEEED_I2C_96x96      5
-#define OLED_SH1106_I2C_128x64    6
-
-#define OLED_LAST_OLED            7 /* always last type, used in code to end array */
-
+enum { 
+	OLED_ADAFRUIT_I2C_128x32 = 0,
+	OLED_ADAFRUIT_I2C_128x64,
+	OLED_SEEED_I2C_128x64,
+	OLED_SEEED_I2C_96x96,
+	OLED_SH1106_I2C_128x64,
+	OLED_LAST_OLED
+};
 
 static const char * oled_type_str[] = {
-    "Adafruit SPI 128x32",
-    "Adafruit SPI 128x64",
     "Adafruit I2C 128x32",
     "Adafruit I2C 128x64",
     "Seeed I2C 128x64",

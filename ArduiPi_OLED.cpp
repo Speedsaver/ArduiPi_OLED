@@ -36,6 +36,8 @@ All text above, and the splash screen below must be included in any redistributi
 			I2C device is passed as argument
 			Verbose errors
 			Remove warnings
+25/12/2018  Destroyedlolo (http://destroyedlolo.info)
+			remove SPI
             
 *********************************************************************/
 
@@ -148,10 +150,6 @@ const unsigned char seedfont[][8] =
   {0x00,0x02,0x05,0x05,0x02,0x00,0x00,0x00} 
 };
 
-inline boolean ArduiPi_OLED::isSPI(void) {
-  return (spi == 1 ? true : false);
-}
-
 // the most basic function, set a single pixel
 void ArduiPi_OLED::drawPixel(int16_t x, int16_t y, uint16_t color) 
 {
@@ -235,23 +233,6 @@ ArduiPi_OLED::ArduiPi_OLED()
 }
 
 
-// When not initialized program using this library may
-// know protocol for correct init call, he could just know
-// oled number in driver list
-boolean ArduiPi_OLED::oled_is_spi_proto(uint8_t OLED_TYPE) 
-{
-  switch (OLED_TYPE)
-  {
-    case OLED_ADAFRUIT_SPI_128x32:
-    case OLED_ADAFRUIT_SPI_128x64:
-      return true;
-    break;
-  }
-    
-  // default 
-  return false;
-}
-
 // initializer for OLED Type
 boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE, const char *dev){
   // Default type
@@ -267,16 +248,6 @@ boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE, const char *dev){
   // Setup size and I2C address
   switch (OLED_TYPE)
   {
-    case OLED_ADAFRUIT_SPI_128x32:
-      oled_height = 32;
-      spi = 1;
-    break;
-
-    case OLED_ADAFRUIT_SPI_128x64:
-        spi = 1;
-    ;
-    break;
-    
     case OLED_ADAFRUIT_I2C_128x32:
       oled_height = 32;
       //_i2c_addr = ADAFRUIT_I2C_ADDRESS;
@@ -591,69 +562,42 @@ void ArduiPi_OLED::invertDisplay(uint8_t i)
 
 void ArduiPi_OLED::sendCommand(uint8_t c) 
 { 
-  // Is SPI
-  if (isSPI())
-  {
-
-  }
-  // so I2C
-  else
-  {
-    uint8_t buff[2] ;
+	uint8_t buff[2] ;
     
-    // Clear D/C to switch to command mode
-    buff[0] = SSD_Command_Mode ; 
-    buff[1] = c;
+	// Clear D/C to switch to command mode
+	buff[0] = SSD_Command_Mode ; 
+	buff[1] = c;
     
-    // Write Data on I2C
-    lcd_dev_write(buff, 2);
-  }
+	// Write Data on I2C
+	lcd_dev_write(buff, 2);
 }
 
 void ArduiPi_OLED::sendCommand(uint8_t c0, uint8_t c1) 
 { 
-  uint8_t buff[3] ;
-  buff[1] = c0;
-  buff[2] = c1;
+	uint8_t buff[3] ;
+	buff[1] = c0;
+	buff[2] = c1;
 
-  // Is SPI
-  if (isSPI())
-  {
- 
-  }
-  // I2C
-  else
-  {
-    // Clear D/C to switch to command mode
-    buff[0] = SSD_Command_Mode ;
+ 	// Clear D/C to switch to command mode
+	buff[0] = SSD_Command_Mode ;
 
-    // Write Data on I2C
-    lcd_dev_write(buff, 3) ;
-  }
+	// Write Data on I2C
+	lcd_dev_write(buff, 3) ;
 }
 
 void ArduiPi_OLED::sendCommand(uint8_t c0, uint8_t c1, uint8_t c2) 
 { 
-  uint8_t buff[4] ;
+	uint8_t buff[4] ;
     
-  buff[1] = c0;
-  buff[2] = c1;
-  buff[3] = c2;
+	buff[1] = c0;
+	buff[2] = c1;
+	buff[3] = c2;
 
-  // Is SPI
-  if (isSPI())
-  {
- 
-  }
-  // I2C
-  else
-  {
-    // Clear D/C to switch to command mode
-    buff[0] = SSD_Command_Mode; 
+	// Clear D/C to switch to command mode
+	buff[0] = SSD_Command_Mode; 
 
-    // Write Data on I2C
-    lcd_dev_write(buff, 4)  ;
-  }
+	// Write Data on I2C
+	lcd_dev_write(buff, 4)  ;
 }
 
 
@@ -755,23 +699,14 @@ void ArduiPi_OLED::stopscroll(void)
 
 void ArduiPi_OLED::sendData(uint8_t c) 
 {
-  // SPI
-  if ( isSPI())
-  {
-
-  }
-  // I2C
-  else
-  {
-    uint8_t buff[2] ;
+	uint8_t buff[2] ;
     
-    // Setup D/C to switch to data mode
-    buff[0] = SSD_Data_Mode; 
-    buff[1] = c;
+	// Setup D/C to switch to data mode
+	buff[0] = SSD_Data_Mode; 
+	buff[1] = c;
 
-    // Write on i2c
-    lcd_dev_write( buff, 2) ;
-  }
+	// Write on i2c
+	lcd_dev_write( buff, 2) ;
 }
 
 void ArduiPi_OLED::display(void) 
@@ -794,48 +729,39 @@ void ArduiPi_OLED::display(void)
   // pointer to OLED data buffer
   uint8_t * p = poledbuff;
 
-  // SPI
-  if ( isSPI())
-  {
+  uint8_t buff[17] ;
+  uint8_t x ;
+
+  // Setup D/C to switch to data mode
+  buff[0] = SSD_Data_Mode; 
     
-  }
-  // I2C
-  else 
+  if (oled_type == OLED_SH1106_I2C_128x64)
   {
-    uint8_t buff[17] ;
-    uint8_t x ;
-
-    // Setup D/C to switch to data mode
-    buff[0] = SSD_Data_Mode; 
-    
-    if (oled_type == OLED_SH1106_I2C_128x64)
+    for (uint8_t k=0; k<8; k++) 
     {
-      for (uint8_t k=0; k<8; k++) 
-      {
-        sendCommand(0xB0+k);//set page addressSSD_Data_Mode;
-        sendCommand(0x02) ;//set lower column address
-        sendCommand(0x10) ;//set higher column address
+      sendCommand(0xB0+k);//set page addressSSD_Data_Mode;
+      sendCommand(0x02) ;//set lower column address
+      sendCommand(0x10) ;//set higher column address
 
-       for( i=0; i<8; i++)
-       {
-          for (x=1; x<=16; x++) 
-            buff[x] = *p++;
-
-          lcd_dev_write(buff, 17);
-        }
-      }
-    }
-    else
-    {
-      // loop trough all OLED buffer and 
-      // send a bunch of 16 data byte in one xmission
-      for ( i=0; i<oled_buff_size; i+=16 ) 
-      {
+     for( i=0; i<8; i++)
+     {
         for (x=1; x<=16; x++) 
           buff[x] = *p++;
 
         lcd_dev_write(buff, 17);
       }
+    }
+  }
+  else
+  {
+    // loop trough all OLED buffer and 
+    // send a bunch of 16 data byte in one xmission
+    for ( i=0; i<oled_buff_size; i+=16 ) 
+    {
+      for (x=1; x<=16; x++) 
+        buff[x] = *p++;
+
+      lcd_dev_write(buff, 17);
     }
   }
 }
