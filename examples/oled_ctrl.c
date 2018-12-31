@@ -132,6 +132,13 @@ int main( int ac, char **av ){
 			puts("On");
 		PiOLED_OnOff(true);
 		break;
+#if 1
+	case 't':
+		if(opts.verbose)
+			puts("Test");
+		PiOLED_sendCommand( 0xe4 );
+		break;
+#endif
 	default :
 		fputs("Unknown mode provided\n", stderr);
 		fputs("Run with '--help'.\n", stderr);
