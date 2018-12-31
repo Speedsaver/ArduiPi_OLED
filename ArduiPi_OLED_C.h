@@ -24,6 +24,8 @@ Wrapper to C language
 	Add this missing header
 25/12/2018	Destroyedlolo (http://destroyedlolo.info)
 	Add OnOff()
+28/12/2018	Destroyedlolo (http://destroyedlolo.info)
+	expose PiOLED_sendCommand() as well
 *********************************************************************/
 
 #ifndef ARDUIPI_OLED_C_H
@@ -39,6 +41,7 @@ extern "C" {
 #endif
 
 extern boolean PiOLED_Init(int oledType, const char *dev);
+extern void PiOLED_sendCommand(uint8_t c);
 extern void PiOLED_Close();
 extern void PiOLED_Display();
 extern void PiOLED_ClearDisplay();

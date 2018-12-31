@@ -31,7 +31,7 @@ LIBDIR=$(PREFIX)/lib
 # lib name 
 LIB=libArduiPi_OLED
 # shared library name
-LIBSUB=.3
+LIBSUB=.4
 LIBNAME=$(LIB).so.2${LIBSUB}
 
 # notez-bien : in case of cross or distributed compilation, 

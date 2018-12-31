@@ -53,6 +53,10 @@ extern "C" boolean PiOLED_Init(int oledType, const char *dev){
 	return 1;
 }
 
+extern "C" void PiOLED_sendCommand(uint8_t c){
+	extDisplay->sendCommand(c);
+}
+
 extern "C" void PiOLED_Close(){
 	extDisplay->close();
 }
