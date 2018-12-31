@@ -28,8 +28,8 @@ struct s_opts {
 };
 
 struct s_opts opts = {
-	OLED_SH1106_I2C_128x64,	// Default oled
-	true,					// Not verbose
+	OLED_ADAFRUIT_I2C_128x64,	// Default oled
+	true,				// Not verbose
 	"/dev/i2c-2"			// default port
 };
 
@@ -388,7 +388,7 @@ void usage( char * name){
 	puts("<?> indicates the equivalent short option.");
 	puts("Short options are prefixed by \"-\" instead of by \"--\".");
 	puts("Example :");
-	printf( "%s -o 3    --> use a %s OLED\n", name, oled_type_str[3]);
+	printf( "%s -o 1    --> use a %s OLED\n", name, oled_type_str[1]);
 	printf( "%s -o 4 -v --> use a %s OLED being verbose\n", name, oled_type_str[4]);
 
 }
@@ -423,8 +423,8 @@ void parse_args(int argc, char *argv[]){
 			opts.oled = atoi(optarg);
 			if (opts.oled < 0 || opts.oled >= OLED_LAST_OLED ){
 				fprintf(stderr, "--oled %d ignored must be 0 to %d.\n", opts.oled, OLED_LAST_OLED-1);
-				fprintf(stderr, "--oled set to 0 now\n");
-				opts.oled = 0;
+				fprintf(stderr, "--oled set to 1 now\n");
+				opts.oled = 1;
 			}
 			break;
 		case 'h':

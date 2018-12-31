@@ -48,7 +48,7 @@ struct s_opts
 };
 
 struct s_opts opts = {
-	OLED_SH1106_I2C_128x64,	// Default oled
+	OLED_ADAFRUIT_I2C_128x64,	// Default oled
 	true,					// Not verbose
 	"/dev/i2c-2"			// default port
 };
