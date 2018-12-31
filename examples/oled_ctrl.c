@@ -7,6 +7,9 @@
  *
  * 25/12/2018	Destroyedlolo (http://destroyedlolo.info)
  * 		First version
+ * 30/12/2018	Destroyedlolo (http://destroyedlolo.info)
+ * 		Rename to oled_ctrl
+ * 		Add flip
  */
 
 #include "ArduiPi_OLED_C.h"
@@ -14,7 +17,7 @@
 #include <getopt.h>
 #include <stdbool.h>
 
-#define PRG_NAME        "oled_OnOff"
+#define PRG_NAME        "oled_ctrl"
 #define PRG_VERSION     "1.0"
 
 struct s_opts {
@@ -34,7 +37,7 @@ struct s_opts opts = {
  ****/
 void usage( char * name){
 	printf("%s\n", name );
-	printf("Usage is: %s --oled type [options] {1|0}\n", name);
+	printf("Usage is: %s --oled type [options] {ON|OFF|FLIP|UNFLIP}\n", name);
 	puts("  --<o>led type\nOLED type are:");
 	for (int i=0; i<OLED_LAST_OLED;i++)
 		printf("  %1d %s\n", i, oled_type_str[i]);
@@ -112,34 +115,38 @@ void parse_args(int argc, char *argv[]){
  *****/
 
 int main( int ac, char **av ){
-	char val='?';
+	const char *val="?";
 	parse_args( ac, av );
 
 	if(optind < ac)
-		val = *av[optind];
+		val = av[optind];
 
 	if( !PiOLED_Init(opts.oled, opts.port) )
 		exit(EXIT_FAILURE);
 
-	switch(val){
-	case '0':
+	if(!strcmp(val, "OFF")){
 		if(opts.verbose)
 			puts("Off");
 		PiOLED_OnOff(false);
-		break;
-	case '1':
+	} else if(!strcmp(val, "ON")){
 		if(opts.verbose)
 			puts("On");
 		PiOLED_OnOff(true);
-		break;
+	} else if(!strcmp(val, "FLIP")){
+		if(opts.verbose)
+			puts("Flip");
+		PiOLED_Flip(true);
+	} else if(!strcmp(val, "UNFLIP")){
+		if(opts.verbose)
+			puts("unFlip");
+		PiOLED_Flip(false);
 #if 1
-	case 't':
+	} else if(!strcmp(val, "test")){
 		if(opts.verbose)
 			puts("Test");
 		PiOLED_sendCommand( 0xe4 );
-		break;
 #endif
-	default :
+	} else {
 		fputs("Unknown mode provided\n", stderr);
 		fputs("Run with '--help'.\n", stderr);
 	}

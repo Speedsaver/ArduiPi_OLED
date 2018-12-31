@@ -11,6 +11,8 @@
  *
  * 24/12/2018	Destroyedlolo (http://destroyedlolo.info)
  * 		Port from oled_demo.cpp
+ * 30/12/2018	Destroyedlolo (http://destroyedlolo.info)
+ * 		Add Flip() test
  **********/
 
 #include "ArduiPi_OLED_C.h"
@@ -74,6 +76,16 @@ void testinvert(){
 	PiOLED_Invert(true);
 	sleep(1);
 	PiOLED_Invert(false);
+	sleep(1);
+}
+
+void testflip(){
+	if(opts.verbose)
+		puts("Flip tests\n"
+			"----------");
+	PiOLED_Flip(true);
+	sleep(2);
+	PiOLED_Flip(false);
 	sleep(1);
 }
 
@@ -481,6 +493,7 @@ int main( int ac, char **av ){
 #endif
 
 	testmessages();
+	testflip();
 	testdrawchar();
 	testscrolltext();
 	testdrawline();

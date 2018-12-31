@@ -39,6 +39,8 @@ All text above, and the splash screen below must be included in any redistributi
 25/12/2018  Destroyedlolo (http://destroyedlolo.info)
 			remove SPI
 			Add OnOff()
+30/12/2018  Destroyedlolo (http://destroyedlolo.info)
+			Add Flip()
             
 *********************************************************************/
 
@@ -378,9 +380,6 @@ void ArduiPi_OLED::begin( void )
   }
   
   if (oled_type == OLED_SEEED_I2C_96x96 )
-/*
- * Put plain C function declarations here ...
- */ 
     sendCommand(SSD1327_Set_Command_Lock, 0x12); // Unlock OLED driver IC MCU interface from entering command. i.e: Accept commands
   
   sendCommand(SSD_Display_Off);                    
@@ -493,8 +492,20 @@ void ArduiPi_OLED::begin( void )
   usleep(100000);
 }
 
+// Turn the display On and Off
 void ArduiPi_OLED::OnOff( boolean i ){
 	sendCommand(i ? SSD_Display_On : SSD_Display_Off);
+}
+
+// Turn the display upside-down 
+void ArduiPi_OLED::Flip( boolean i ){
+	if(i){
+		sendCommand( SSD1306_Set_Seg_Direction_Nomal );
+		sendCommand( SSD1306_Set_Com_Output_Scan_Direction_Normal );
+	} else {
+		sendCommand( SSD1306_Set_Seg_Direction_Rever );
+		sendCommand( SSD1306_Set_Com_Output_Scan_Direction_Remap );
+	}
 }
 
 // Only valid for Seeed 96x96 OLED

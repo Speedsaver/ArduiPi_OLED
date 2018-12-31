@@ -27,6 +27,8 @@ All text above, and the splash screen must be included in any redistribution
 	--- European time format ---
 23/12/2018  Destroyedlolo (http://destroyedlolo.info)
 			I2C device is passed as argument
+30/12/2018	Destroyedlolo (http://destroyedlolo.info)
+			Add Flip()
  
 *********************************************************************/
 
@@ -108,6 +110,8 @@ All text above, and the splash screen must be included in any redistribution
 #define SSD1306_Set_Higher_Column_Start_Address       0x10
 #define SSD1306_Set_Start_Line      0x40
 #define SSD1306_Set_Memory_Mode     0x20
+#define SSD1306_Set_Seg_Direction_Nomal 0xA0
+#define SSD1306_Set_Seg_Direction_Rever 0xA1
 #define SSD1306_Set_Com_Output_Scan_Direction_Normal  0xC0
 #define SSD1306_Set_Com_Output_Scan_Direction_Remap   0xC8
 #define SSD1306_Charge_Pump_Setting 0x8D
@@ -172,6 +176,7 @@ class ArduiPi_OLED : public Adafruit_GFX
   void invertDisplay(uint8_t i);
   void display();
   void OnOff( boolean );
+  void Flip( boolean );
   
   void setSeedTextXY(unsigned char Row, unsigned char Column);
   void putSeedChar(char C);

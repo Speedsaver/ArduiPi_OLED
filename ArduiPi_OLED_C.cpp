@@ -22,6 +22,9 @@ All text above, and the splash screen below must be included in any redistributi
 24/12/2018	Destroyedlolo (http://destroyedlolo.info)
 			Change prefix to PiOLED which is more explanatory.
 
+30/12/2018	Destroyedlolo (http://destroyedlolo.info)
+			Rename this file
+			Add Flip()
 *********************************************************************/
 
 #include "./ArduiPi_OLED_C.h"
@@ -75,6 +78,10 @@ extern "C" void PiOLED_Invert( boolean i ){
 
 extern "C" void PiOLED_OnOff( boolean i ){
 	extDisplay->OnOff(i);
+}
+
+extern "C" void PiOLED_Flip( boolean i ){
+	extDisplay->Flip(i);
 }
 
 extern "C" void PiOLED_DrawPixel(int16_t x, int16_t y, uint16_t color){
