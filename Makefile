@@ -31,7 +31,7 @@ LIBDIR=$(PREFIX)/lib
 # lib name 
 LIB=libArduiPi_OLED
 # shared library name
-LIBSUB=.4
+LIBSUB=.5
 LIBNAME=$(LIB).so.2${LIBSUB}
 
 # notez-bien : in case of cross or distributed compilation, 
@@ -48,7 +48,7 @@ CFLAGS=$(CCFLAGS)
 all: ArduiPi_OLED 
 
 # Make the library
-ArduiPi_OLED: ArduiPi_OLED.o Adafruit_GFX.o Wrapper.o dev_io.o
+ArduiPi_OLED: ArduiPi_OLED.o Adafruit_GFX.o ArduiPi_OLED_C.o dev_io.o
 	$(CXX) -shared -Wl,-soname,$(LIB).so.2 $(CFLAGS) $(LDFLAGS)  -o ${LIBNAME} $^
 	@ln -sf ${LIBNAME} ${LIB}.so.2
 	@ln -sf ${LIBNAME} ${LIB}.so
@@ -63,7 +63,7 @@ Adafruit_GFX.o: Adafruit_GFX.cpp dev_io.h ArduiPi_OLED_lib.h
 dev_io.o: dev_io.c dev_io.h
 	$(CC) -Wall -fPIC $(CFLAGS) -c $^
 
-Wrapper.o: Wrapper.cpp ArduiPi_OLED_lib.h Adafruit_GFX.h ArduiPi_OLED.h ArduiPi_OLED_C.h dev_io.h
+ArduiPi_OLED_C.o: ArduiPi_OLED_C.cpp ArduiPi_OLED_lib.h Adafruit_GFX.h ArduiPi_OLED.h ArduiPi_OLED_C.h dev_io.h
 	$(CXX) -Wall -fPIC -fno-rtti $(CCFLAGS) -c $^
 
 # Install the library to LIBPATH
