@@ -29,6 +29,8 @@ All text above, and the splash screen must be included in any redistribution
 			I2C device is passed as argument
 30/12/2018	Destroyedlolo (http://destroyedlolo.info)
 			Add Flip()
+03/01/2019	Destroyedlolo (http://destroyedlolo.info)
+			Add SaveToPBM()
  
 *********************************************************************/
 
@@ -177,6 +179,8 @@ class ArduiPi_OLED : public Adafruit_GFX
   void display();
   void OnOff( boolean );
   void Flip( boolean );
+
+  boolean SaveToPBM(const char *);
   
   void setSeedTextXY(unsigned char Row, unsigned char Column);
   void putSeedChar(char C);
@@ -195,6 +199,7 @@ class ArduiPi_OLED : public Adafruit_GFX
   void stopscroll(void);
 
   void drawPixel(int16_t x, int16_t y, uint16_t color);
+  uint16_t getPixel(int16_t x, int16_t y);
 
   private:
   uint8_t *poledbuff; // Pointer to OLED data buffer in memory

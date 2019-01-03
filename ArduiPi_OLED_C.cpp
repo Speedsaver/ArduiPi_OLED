@@ -84,8 +84,16 @@ extern "C" void PiOLED_Flip( boolean i ){
 	extDisplay->Flip(i);
 }
 
+extern "C" boolean SaveToPBM(const char *fn ){
+	return extDisplay->SaveToPBM(fn);
+}
+
 extern "C" void PiOLED_DrawPixel(int16_t x, int16_t y, uint16_t color){
 	extDisplay->drawPixel(x, y, color);
+}
+
+extern "C" uint16_t getPixel(int16_t x, int16_t y){
+	return extDisplay->getPixel(x,y);
 }
 
 extern "C" void PiOLED_StartScrollLeft(uint8_t start, uint8_t stop){

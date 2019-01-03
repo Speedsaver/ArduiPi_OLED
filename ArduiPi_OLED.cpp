@@ -218,6 +218,21 @@ void ArduiPi_OLED::drawPixel(int16_t x, int16_t y, uint16_t color)
   }
 }
 
+// Get the value of a pixel
+uint16_t ArduiPi_OLED::getPixel(int16_t x, int16_t y){
+	uint8_t *p = poledbuff;
+	if((x < 0) || (x >= width()) || (y < 0) || (y >= height()))
+		return 0;
+
+	if(oled_type == OLED_SEEED_I2C_96x96){
+		fputs("Not implemented\n", stderr);
+		return 0;
+	} else {
+		p = poledbuff + (x + (y/8)*oled_width );
+		return(!!(*p & _BV((y%8))));
+	}
+}
+
 // Display instantiation
 ArduiPi_OLED::ArduiPi_OLED() 
 {
@@ -780,6 +795,30 @@ void ArduiPi_OLED::display(void)
       lcd_dev_write(buff, 17);
     }
   }
+}
+
+// Save the display's buffer as a PBM
+boolean ArduiPi_OLED::SaveToPBM(const char *fn){
+	FILE *f = fopen(fn, "w");
+	int16_t x,y;
+
+	if(!f)
+		return false;
+
+	fprintf(f, "P1\n%d %d\n", width(), height());
+
+	
+	for(y=0;y<height();y++){
+		for(x=0;x<width();x++){
+			if(!(x%8))
+				fputc(' ',f);
+			fputc(getPixel(x,y) ? '1':'0', f);
+		}
+		fputc('\n',f);
+	}
+
+	fclose(f);
+	return true;
 }
 
 // clear everything (in the buffer)
