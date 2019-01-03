@@ -41,10 +41,10 @@ enum {
 };
 
 static const char * oled_type_str[] = {
-    "Adafruit I2C 128x32",
-    "Adafruit I2C 128x64",
-    "Seeed I2C 128x64",
-    "Seeed I2C 96x96",
+    "SSD1306 (Adafruit) I2C 128x32",
+    "SSD1306 (Adafruit) I2C 128x64",
+    "SSD1308 (Seeed) I2C 128x64",
+    "SSD1308 (Seeed) I2C 96x96",
     "SH1106 I2C 128x64"
 };
 
