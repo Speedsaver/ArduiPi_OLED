@@ -48,7 +48,7 @@ extern void PiOLED_ClearDisplay();
 extern void PiOLED_Invert( boolean );
 extern void PiOLED_OnOff( boolean );
 extern void PiOLED_Flip( boolean );
-extern boolean SaveToPBM(const char *);
+extern boolean PiOLED_SaveToPBM(const char *);
 
 extern void PiOLED_DrawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color);
 extern void PiOLED_DrawCircleHelper(int16_t x0, int16_t y0, int16_t r, uint8_t cornername, uint16_t color);

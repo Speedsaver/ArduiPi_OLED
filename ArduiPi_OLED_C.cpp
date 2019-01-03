@@ -84,7 +84,7 @@ extern "C" void PiOLED_Flip( boolean i ){
 	extDisplay->Flip(i);
 }
 
-extern "C" boolean SaveToPBM(const char *fn ){
+extern "C" boolean PiOLED_SaveToPBM(const char *fn ){
 	return extDisplay->SaveToPBM(fn);
 }
 
