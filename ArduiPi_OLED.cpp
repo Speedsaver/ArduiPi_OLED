@@ -812,7 +812,7 @@ boolean ArduiPi_OLED::SaveToPBM(const char *fn){
 		for(x=0;x<width();x++){
 			if(!(x%8))
 				fputc(' ',f);
-			fputc(getPixel(x,y) ? '1':'0', f);
+			fputc(getPixel(x,y) ? '0':'1', f);
 		}
 		fputc('\n',f);
 	}
