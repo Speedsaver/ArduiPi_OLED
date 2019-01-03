@@ -1,6 +1,8 @@
 This fork made the library totally platform agnostic : no need to declare the host platform or the I2C bus to use at library build time but you have to pass as an argument the said port (i.e. **/dev/i2c-2** on the *BananaPI*.
 If your host has more than one I2C bus exposed (like on the *BananaPro*), you may have several tiny screens without cheating.
 
+I also added some neat functionnality (getPixel(), SaveToPBM(), ...) and make the C interface working.
+
 CAUTION :
 ---------
 
@@ -29,7 +31,6 @@ Not implemented for SPI.
 
 [04/2018] Tested on an Orange Pi Zero H2+ running Armbian
 (Armbian has something in the boot config called "overlays" which enable IO ports, in this case it was 'i2c0')
-with an "SSD1306" OLED display (128x64). Had to use type "OLED_SH1106_I2C_128x64" for the library init to get it to work.
   
 Thanks to the original author, what follows is the original README:  
   
