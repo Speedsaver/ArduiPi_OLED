@@ -75,7 +75,7 @@ extern void PiOLED_SetTextColor(uint16_t c);
 extern void PiOLED_SetTextColor2(uint16_t c, uint16_t b);
 extern void PiOLED_SetTextWrap(boolean w);
 extern void PiOLED_DrawPixel(int16_t x, int16_t y, uint16_t color);
-extern void PiOLED_getPixel(int16_t x, int16_t y);
+extern uint16_t PiOLED_getPixel(int16_t x, int16_t y);
 extern void PiOLED_StartScrollLeft(uint8_t start, uint8_t stop);
 extern void PiOLED_StartScrollRight(uint8_t start, uint8_t stop);
 extern void PiOLED_StartScrollDiagLeft(uint8_t start, uint8_t stop);
