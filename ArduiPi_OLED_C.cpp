@@ -124,16 +124,8 @@ extern "C" void PiOLED_DrawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t co
 	extDisplay->drawCircle(x0, y0, r, color);
 }
 
-extern "C" void PiOLED_DrawCircleHelper(int16_t x0, int16_t y0, int16_t r, uint8_t cornername, uint16_t color){
-	extDisplay->drawCircleHelper(x0, y0, r, cornername, color);
-}
-
 extern "C" void PiOLED_FillCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color){
 	extDisplay->fillCircle(x0, y0, r, color);
-}
-
-extern "C" void PiOLED_FillCircleHelper(int16_t x0, int16_t y0, int16_t r, uint8_t cornername, int16_t delta, uint16_t color){
-	extDisplay->fillCircleHelper(x0, y0, r, cornername, delta, color);
 }
 
 extern "C" void PiOLED_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color){
