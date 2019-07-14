@@ -3,10 +3,29 @@ If your host has more than one I2C bus exposed (like on the *BananaPro*), you ma
 
 I also added some neat functionnality (getPixel(), SaveToPBM(), ...) and make the C interface working.
 
+Geek short installation guide :
+-------------------------------
+
+Hardware installation procedure can be found in [Hallard's blog][2]. To make and install the library, the procedure is the following :
+
+* Even if the default configuration may suite 99% of installation, you may customize the **Makefile**, especially for following variables :
+  - `PREFIX=` where the library will be installed (default `/usr/local`)
+  - `CFLAGS=` to specify compiler option. The default one will rely on build host architecture **that may not be suitable for cross or distributed compilation**.
+* then build
+~~~~
+make clean
+make
+~~~~
+
+* and finally install **as root** (probably using `sudo`):
+~~~~
+make install
+~~~~
+
 CAUTION :
 ---------
 
-- the Makefile has to be changed if you're cross compiling or if you're using heterogeneous distributed compilation.
+- Again **the Makefile has to be changed if you're cross compiling or if you're using heterogeneous distributed compilation**.
 - SPI is not supported : some sequels of the previous code remain but may be cleaned in future release (but if someone wants to take care of SPI in a portable way).
 - I discovered lot of issues, misbehaviours in includes dependencies and in Makefile themselves. I corrected the most obvious ones but some work remains : if you're experiencing "/bizarre features/" ((tm) micro$oft), do
 ~~~~
