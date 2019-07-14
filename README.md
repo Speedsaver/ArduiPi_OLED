@@ -1,7 +1,7 @@
 This fork made the library totally platform agnostic : no need to declare the host platform or the I2C bus to use at library build time but you have to pass as an argument the said port (i.e. **/dev/i2c-2** on the *BananaPI*).
 If your host has more than one I2C bus exposed (like on the *BananaPro*), you may have several tiny screens without cheating.
 
-I also added some neat functionnality (getPixel(), SaveToPBM(), ...) and make the C interface working.
+I also added some neat functionality (getPixel(), SaveToPBM(), ...) and make the C interface working.
 
 Geek short installation guide :
 -------------------------------
