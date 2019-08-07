@@ -1,4 +1,4 @@
-This fork made the library totally platform agnostic : no need to declare the host platform or the I2C bus to use at library build time but you have to pass as an argument the said port (i.e. **/dev/i2c-2** on the *BananaPI*).
+This fork mades the library totally platform agnostic : no need to declare the host platform or the I2C bus to use at library build time but you have to pass as an argument the said port (i.e. **/dev/i2c-2** on the *BananaPI*).
 If your host has more than one I2C bus exposed (like on the *BananaPro*), you may have several tiny screens without cheating.
 
 I also added some neat functionality (getPixel(), SaveToPBM(), ...) and make the C interface working.
@@ -27,7 +27,7 @@ CAUTION :
 
 - Again **the Makefile has to be changed if you're cross compiling or if you're using heterogeneous distributed compilation**.
 - SPI is not supported : some sequels of the previous code remain but may be cleaned in future release (but if someone wants to take care of SPI in a portable way).
-- I discovered lot of issues, misbehaviours in includes dependencies and in Makefile themselves. I corrected the most obvious ones but some work remains : if you're experiencing "/bizarre features/" ((tm) micro$oft), do
+- I discovered lot of issues, misbehaviours in includes dependencies and in Makefile themselves. I corrected the most obvious ones but some work remains : if you're experiencing "*bizarre features*" ((tm) micro$oft), do
 ~~~~
 make clean
 make
