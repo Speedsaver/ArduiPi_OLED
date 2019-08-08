@@ -21,7 +21,7 @@ ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 prefix := /usr/local
 
 # define all programs
-PROGRAMS = oled_demo
+PROGRAMS = oled_demo oled_pattern
 SOURCES = ${PROGRAMS:=.cpp}
 
 CPROGRAMS = oled_cdemo oled_ctrl
