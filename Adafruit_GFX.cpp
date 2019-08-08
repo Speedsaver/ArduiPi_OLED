@@ -81,8 +81,7 @@ void Adafruit_GFX::print( const char * string)
 
 
 // draw a circle outline
-void Adafruit_GFX::drawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color) 
-{
+void Adafruit_GFX::drawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color, uint16_t pattern){
 	int16_t f = 1 - r;
 	int16_t ddF_x = 1;
 	int16_t ddF_y = -2 * r;
@@ -107,15 +106,21 @@ void Adafruit_GFX::drawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color)
 		ddF_x += 2;
 		f += ddF_x;
 	
-		drawPixel(x0 + x, y0 + y, color);
-		drawPixel(x0 - x, y0 + y, color);
-		drawPixel(x0 + x, y0 - y, color);
-		drawPixel(x0 - x, y0 - y, color);
-		drawPixel(x0 + y, y0 + x, color);
-		drawPixel(x0 - y, y0 + x, color);
-		drawPixel(x0 + y, y0 - x, color);
-		drawPixel(x0 - y, y0 - x, color);
+		if(pattern & 1){
+			drawPixel(x0 + x, y0 + y, color);
+			drawPixel(x0 - x, y0 + y, color);
+			drawPixel(x0 + x, y0 - y, color);
+			drawPixel(x0 - x, y0 - y, color);
+			drawPixel(x0 + y, y0 + x, color);
+			drawPixel(x0 - y, y0 + x, color);
+			drawPixel(x0 + y, y0 - x, color);
+			drawPixel(x0 - y, y0 - x, color);
+		}
 		
+		uint16_t carry = pattern & 1;
+		pattern >>= 1;
+		if(carry)
+			pattern |= 0x8000;		
 	}
 }
 

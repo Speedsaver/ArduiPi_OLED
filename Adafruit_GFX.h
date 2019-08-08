@@ -66,7 +66,7 @@ class Adafruit_GFX {
 	
   virtual void fillScreen(uint16_t color);
 
-  void drawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color);
+  void drawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color, uint16_t pattern=0xffff);
   void drawCircleHelper(int16_t x0, int16_t y0,	int16_t r, uint8_t cornername, uint16_t color);
   void fillCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color);
   void fillCircleHelper(int16_t x0, int16_t y0, int16_t r, uint8_t cornername, int16_t delta, uint16_t color);

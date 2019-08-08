@@ -63,6 +63,21 @@ void testfillrect(void) {
 	usleep(250000/sleep_divisor);
 }
 
+void testdrawcircle(void) {
+	uint16_t pat=0;
+	display.clearDisplay();
+	for (int16_t i=0; i<display.height(); i+=2) {
+		if(pat == 0xaaaa)
+			pat=0x8888;
+		else
+			pat=0xaaaa;
+
+		display.drawCircle(display.width()/2, display.height()/2, i, WHITE, pat);
+		display.display();
+	}
+	usleep(250000/sleep_divisor);
+}
+
 /* ======================================================================
 Function: usage
 Purpose : display usage
@@ -195,6 +210,7 @@ int main(int argc, char **argv){
 	testdrawline();
 	testdrawrect();
 	testfillrect();
+	testdrawcircle();
 
 	display.SaveToPBM("/tmp/tst.pbm");
 }
