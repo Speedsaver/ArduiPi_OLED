@@ -53,6 +53,14 @@ void testdrawrect(void){
 		display.drawRect(i, i, display.width()-2*i, display.height()-2*i, WHITE, 0xaaaa);
 		display.display();
 	}
+	usleep(250000/sleep_divisor);
+}
+
+void testfillrect(void) {
+	display.clearDisplay();
+	display.fillRect( 5,5, display.width()-10, display.height()-10, WHITE, 0x8888);
+	display.display();
+	usleep(250000/sleep_divisor);
 }
 
 /* ======================================================================
@@ -186,6 +194,7 @@ int main(int argc, char **argv){
 
 	testdrawline();
 	testdrawrect();
+	testfillrect();
 
 	display.SaveToPBM("/tmp/tst.pbm");
 }
