@@ -167,44 +167,51 @@ void Adafruit_GFX::drawCircleHelper( int16_t x0, int16_t y0, int16_t r, uint8_t 
 	}
 }
 
-void Adafruit_GFX::fillCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color) 
-{
-	drawFastVLine(x0, y0-r, 2*r+1, color);
-	fillCircleHelper(x0, y0, r, 3, 0, color);
+void Adafruit_GFX::fillCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color, uint16_t pattern){
+	if(pattern == 0xffff)
+		drawFastVLine(x0, y0-r, 2*r+1, color);
+	else
+		pattern = drawLine(x0, y0-r, x0, y0-r + 2*r+1, color, pattern);
+::printf("%x\n", pattern);
+	fillCircleHelper(x0, y0, r, 3, 0, color, pattern);
 }
 
 // used to do circles and roundrects!
-void Adafruit_GFX::fillCircleHelper(int16_t x0, int16_t y0, int16_t r, uint8_t cornername, int16_t delta, uint16_t color) 
-{
+void Adafruit_GFX::fillCircleHelper(int16_t x0, int16_t y0, int16_t r, uint8_t cornername, int16_t delta, uint16_t color, uint16_t pattern){
 	int16_t f		 = 1 - r;
 	int16_t ddF_x = 1;
 	int16_t ddF_y = -2 * r;
 	int16_t x		 = 0;
 	int16_t y		 = r;
-
-	while (x<y) 
-	{
-		if (f >= 0) 
-		{
+	while(x<y){
+		if (f >= 0){
 			y--;
 			ddF_y += 2;
-			f		 += ddF_y;
+			f += ddF_y;
 		}
 		
 		x++;
 		ddF_x += 2;
-		f		 += ddF_x;
+		f += ddF_x;
 
-		if (cornername & 0x1) 
-		{
-			drawFastVLine(x0+x, y0-y, 2*y+1+delta, color);
-			drawFastVLine(x0+y, y0-x, 2*x+1+delta, color);
+		if(cornername & 0x1){
+			if(pattern == 0xffff){
+				drawFastVLine(x0+x, y0-y, 2*y+1+delta, color);
+				drawFastVLine(x0+y, y0-x, 2*x+1+delta, color);
+			} else {
+				pattern = drawLine(x0+x, y0-y, x0+x, y0-y + 2*y+1+delta, color, pattern);
+				pattern = drawLine(x0+y, y0-x, x0+y, y0-x + 2*x+1+delta, color, pattern);
+			}
 		}
 		
-		if (cornername & 0x2) 
-		{
-			drawFastVLine(x0-x, y0-y, 2*y+1+delta, color);
-			drawFastVLine(x0-y, y0-x, 2*x+1+delta, color);
+		if (cornername & 0x2){
+			if(pattern == 0xffff){
+				drawFastVLine(x0-x, y0-y, 2*y+1+delta, color);
+				drawFastVLine(x0-y, y0-x, 2*x+1+delta, color);
+			} else {
+				pattern = drawLine(x0-x, y0-y, x0-x, y0-y + 2*y+1+delta, color, pattern);
+				pattern = drawLine(x0-y, y0-x, x0-y, y0-x + 2*x+1+delta, color, pattern);
+			}
 		}
 	}
 }

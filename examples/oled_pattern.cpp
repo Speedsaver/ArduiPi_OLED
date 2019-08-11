@@ -50,7 +50,7 @@ void testdrawline(){
 void testdrawrect(void){
 	display.clearDisplay();
 	for (int16_t i=0; i<display.height()/2; i+=2) {
-		display.drawRect(i, i, display.width()-2*i, display.height()-2*i, WHITE, 0xaaaa);
+		display.drawRect(i, i, display.width()-2*i, display.height()-2*i, WHITE, 0x8888);
 		display.display();
 	}
 	usleep(250000/sleep_divisor);
@@ -58,7 +58,7 @@ void testdrawrect(void){
 
 void testfillrect(void) {
 	display.clearDisplay();
-	display.fillRect( 5,5, display.width()-10, display.height()-10, WHITE, 0x8888);
+	display.fillRect( 5,5, display.width()-10, display.height()-10, WHITE, 0xcccc);
 	display.display();
 	usleep(250000/sleep_divisor);
 }
@@ -75,6 +75,13 @@ void testdrawcircle(void) {
 		display.drawCircle(display.width()/2, display.height()/2, i, WHITE, pat);
 		display.display();
 	}
+	usleep(250000/sleep_divisor);
+}
+
+void testfillcircle(void) {
+	display.clearDisplay();
+	display.fillCircle(display.width()/2, display.height()/2, display.height()/2, WHITE, 0xaaaa);
+	display.display();
 	usleep(250000/sleep_divisor);
 }
 
@@ -211,6 +218,7 @@ int main(int argc, char **argv){
 	testdrawrect();
 	testfillrect();
 	testdrawcircle();
+	testfillcircle();
 
 	display.SaveToPBM("/tmp/tst.pbm");
 }
