@@ -172,7 +172,6 @@ void Adafruit_GFX::fillCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color,
 		drawFastVLine(x0, y0-r, 2*r+1, color);
 	else
 		pattern = drawLine(x0, y0-r, x0, y0-r + 2*r+1, color, pattern);
-::printf("%x\n", pattern);
 	fillCircleHelper(x0, y0, r, 3, 0, color, pattern);
 }
 
@@ -377,41 +376,41 @@ void Adafruit_GFX::fillRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int
 }
 
 // draw a triangle!
-void Adafruit_GFX::drawTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color) 
+void Adafruit_GFX::drawTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color, uint16_t pattern) 
 {
-	drawLine(x0, y0, x1, y1, color);
-	drawLine(x1, y1, x2, y2, color);
-	drawLine(x2, y2, x0, y0, color);
+	pattern = drawLine(x0, y0, x1, y1, color, pattern);
+	pattern = drawLine(x1, y1, x2, y2, color, pattern);
+	drawLine(x2, y2, x0, y0, color, pattern);
 }
 
 // fill a triangle!
-void Adafruit_GFX::fillTriangle ( int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color) 
-{
+void Adafruit_GFX::fillTriangle ( int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color, uint16_t pattern){
 
 	int16_t a, b, y, last;
 
 	// Sort coordinates by Y order (y2 >= y1 >= y0)
-	if (y0 > y1) 
-	{
+	if(y0 > y1) 
 		swap(y0, y1); swap(x0, x1);
-	}
-	if (y1 > y2) 
-	{
+	if(y1 > y2) 
 		swap(y2, y1); swap(x2, x1);
-	}
-	if (y0 > y1) 
-	{
+	if(y0 > y1) 
 		swap(y0, y1); swap(x0, x1);
-	}
 
-	if(y0 == y2) 
-	{ // Handle awkward all-on-same-line case as its own thing
+	if(y0 == y2){ // Handle awkward all-on-same-line case as its own thing
 		a = b = x0;
-		if(x1 < a)			a = x1;
-		else if(x1 > b) b = x1;
-		if(x2 < a)			a = x2;
-		else if(x2 > b) b = x2;
-		drawFastHLine(a, y0, b-a+1, color);
+		if(x1 < a)
+			a = x1;
+		else if(x1 > b)
+			b = x1;
+		if(x2 < a)
+			a = x2;
+		else if(x2 > b)
+			b = x2;
+
+		if(pattern == 0xffff)
+			drawFastHLine(a, y0, b-a+1, color);
+		else
+			drawLine(a, y0, b+1, y0, color, pattern);
 		return;
 	}
 
@@ -436,8 +435,7 @@ void Adafruit_GFX::fillTriangle ( int16_t x0, int16_t y0, int16_t x1, int16_t y1
 	else
 		last = y1-1; // Skip it
 
-	for(y=y0; y<=last; y++) 
-	{
+	for(y=y0; y<=last; y++){
 		a	 = x0 + sa / dy01;
 		b	 = x0 + sb / dy02;
 		sa += dx01;
@@ -449,7 +447,10 @@ void Adafruit_GFX::fillTriangle ( int16_t x0, int16_t y0, int16_t x1, int16_t y1
 		if(a > b) 
 			swap(a,b);
 			
-		drawFastHLine(a, y, b-a+1, color);
+		if(pattern == 0xffff)
+			drawFastHLine(a, y, b-a+1, color);
+		else
+			pattern = drawLine(a, y, b+1, y, color, pattern);
 	}
 
 	// For lower part of triangle, find scanline crossings for segments
@@ -469,7 +470,10 @@ void Adafruit_GFX::fillTriangle ( int16_t x0, int16_t y0, int16_t x1, int16_t y1
 		if(a > b) 
 			swap(a,b);
 			
-		drawFastHLine(a, y, b-a+1, color);
+		if(pattern == 0xffff)
+			drawFastHLine(a, y, b-a+1, color);
+		else
+			pattern = drawLine(a, y, b+1, y, color, pattern);
 	}
 }
 

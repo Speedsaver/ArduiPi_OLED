@@ -66,7 +66,7 @@ void testfillrect(void) {
 void testdrawcircle(void) {
 	uint16_t pat=0;
 	display.clearDisplay();
-	for (int16_t i=0; i<display.height(); i+=2) {
+	for(int16_t i=0; i<display.height(); i+=2){
 		if(pat == 0xaaaa)
 			pat=0x8888;
 		else
@@ -82,6 +82,34 @@ void testfillcircle(void) {
 	display.clearDisplay();
 	display.fillCircle(display.width()/2, display.height()/2, display.height()/2, WHITE, 0xaaaa);
 	display.display();
+	usleep(250000/sleep_divisor);
+}
+
+void testdrawtriangle(void) {
+	uint16_t pat=0;
+	display.clearDisplay();
+	for(int16_t i=0; i<min(display.width(),display.height())/2; i+=5){
+		if(pat == 0xaaaa)
+			pat=0x8888;
+		else
+			pat=0xaaaa;
+
+		display.drawTriangle(display.width()/2, display.height()/2-i,
+			display.width()/2-i, display.height()/2+i,
+			display.width()/2+i, display.height()/2+i, WHITE, pat);
+		display.display();
+	}
+	usleep(250000/sleep_divisor);
+}
+
+void testfilledtriangle(void){
+	display.clearDisplay();
+	display.fillTriangle( 
+		rand() % display.width(), rand() % display.height(),
+		rand() % display.width(), rand() % display.height(),
+		rand() % display.width(), rand() % display.height(),
+		WHITE, 0xaaaa
+	);
 	usleep(250000/sleep_divisor);
 }
 
@@ -219,6 +247,8 @@ int main(int argc, char **argv){
 	testfillrect();
 	testdrawcircle();
 	testfillcircle();
+	testdrawtriangle();
+	testfilledtriangle();
 
 	display.SaveToPBM("/tmp/tst.pbm");
 }
