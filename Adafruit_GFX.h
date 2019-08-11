@@ -55,7 +55,7 @@ class Adafruit_GFX {
 	void print( const char * string) ;
 
   // these are 'generic' drawing functions, so we can share them!
-  virtual void drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color, uint16_t pattern=0xffff);
+  virtual uint16_t drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color, uint16_t pattern=0xffff);
   virtual void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
   virtual void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
   virtual void drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t pattern=0xffff);

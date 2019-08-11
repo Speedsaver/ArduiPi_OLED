@@ -210,7 +210,7 @@ void Adafruit_GFX::fillCircleHelper(int16_t x0, int16_t y0, int16_t r, uint8_t c
 }
 
 // bresenham's algorithm - thx wikpedia
-void Adafruit_GFX::drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color, uint16_t pattern){
+uint16_t Adafruit_GFX::drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color, uint16_t pattern){
 	int16_t steep = abs(y1 - y0) > abs(x1 - x0);
 	if(steep){
 		swap(x0, y0);
@@ -253,6 +253,8 @@ void Adafruit_GFX::drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint
 		if(carry)
 			pattern |= 0x8000;
 	}
+
+	return pattern;
 }
 
 
@@ -264,9 +266,9 @@ void Adafruit_GFX::drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t
 		drawFastVLine(x, y, h, color);
 		drawFastVLine(x+w-1, y, h, color);
 	} else {
-		drawLine(x,y,     x+w,y,   color, pattern);
-		drawLine(x+w,y,   x+w,y+h, color, pattern);
-		drawLine(x+w,y+h, x,y+h,   color, pattern);
+		pattern = drawLine(x,y,     x+w,y,   color, pattern);
+		pattern = drawLine(x+w,y,   x+w,y+h, color, pattern);
+		pattern = drawLine(x+w,y+h, x,y+h,   color, pattern);
 		drawLine(x,y+h,   x,y,     color, pattern);
 	}
 }
@@ -291,7 +293,7 @@ void Adafruit_GFX::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t
 		if(pattern == 0xffff)
 			drawFastVLine(i, y, h, color);
 		else
-			drawLine(i,y, i,y+h, color, pattern);
+			pattern = drawLine(i,y, i,y+h, color, pattern);
 	}
 }
 
