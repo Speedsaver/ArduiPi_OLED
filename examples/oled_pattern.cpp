@@ -113,7 +113,7 @@ void testfilledtriangle(void){
 	usleep(250000/sleep_divisor);
 }
 
-void testdrawroundrect(void) {
+void testdrawroundrect(void){
 	uint16_t pat=0;
 	display.clearDisplay();
 	for(int16_t i=0; i<display.height()/2-2; i+=2){
@@ -124,6 +124,12 @@ void testdrawroundrect(void) {
 		display.drawRoundRect(i, i, display.width()-2*i, display.height()-2*i, display.height()/4, WHITE, pat);
 		display.display();
 	}
+	usleep(250000/sleep_divisor);
+}
+
+void testfillroundrect(void){
+	display.clearDisplay();
+	display.fillRoundRect(5,5, display.width()-10, display.height()-10, display.height()/4, WHITE, 0xaaaa);
 	usleep(250000/sleep_divisor);
 }
 
@@ -264,6 +270,7 @@ int main(int argc, char **argv){
 	testdrawtriangle();
 	testfilledtriangle();
 	testdrawroundrect();
+	testfillroundrect();
 
 	display.SaveToPBM("/tmp/tst.pbm");
 }

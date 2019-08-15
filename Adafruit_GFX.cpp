@@ -380,14 +380,13 @@ void Adafruit_GFX::drawRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int
 }
 
 // fill a rounded rectangle!
-void Adafruit_GFX::fillRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color) 
-{
+void Adafruit_GFX::fillRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color, uint16_t pattern){
 	// smarter version
-	fillRect(x+r, y, w-2*r, h, color);
+	fillRect(x+r, y, w-2*r, h, color, pattern);
 
 	// draw four corners
-	fillCircleHelper(x+w-r-1, y+r, r, 1, h-2*r-1, color);
-	fillCircleHelper(x+r		, y+r, r, 2, h-2*r-1, color);
+	fillCircleHelper(x+w-r-1, y+r, r, 1, h-2*r-1, color, pattern);
+	fillCircleHelper(x+r		, y+r, r, 2, h-2*r-1, color, pattern);
 }
 
 // draw a triangle!
