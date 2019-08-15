@@ -113,6 +113,20 @@ void testfilledtriangle(void){
 	usleep(250000/sleep_divisor);
 }
 
+void testdrawroundrect(void) {
+	uint16_t pat=0;
+	display.clearDisplay();
+	for(int16_t i=0; i<display.height()/2-2; i+=2){
+		if(pat == 0xaaaa)
+			pat=0x8888;
+		else
+			pat=0xaaaa;
+		display.drawRoundRect(i, i, display.width()-2*i, display.height()-2*i, display.height()/4, WHITE, pat);
+		display.display();
+	}
+	usleep(250000/sleep_divisor);
+}
+
 /* ======================================================================
 Function: usage
 Purpose : display usage
@@ -249,6 +263,7 @@ int main(int argc, char **argv){
 	testfillcircle();
 	testdrawtriangle();
 	testfilledtriangle();
+	testdrawroundrect();
 
 	display.SaveToPBM("/tmp/tst.pbm");
 }

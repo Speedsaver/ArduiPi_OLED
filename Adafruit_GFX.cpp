@@ -124,7 +124,7 @@ void Adafruit_GFX::drawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color,
 	}
 }
 
-void Adafruit_GFX::drawCircleHelper( int16_t x0, int16_t y0, int16_t r, uint8_t cornername, uint16_t color) 
+uint16_t Adafruit_GFX::drawCircleHelper( int16_t x0, int16_t y0, int16_t r, uint8_t cornername, uint16_t color, uint16_t pattern) 
 {
 	int16_t f		 = 1 - r;
 	int16_t ddF_x = 1;
@@ -144,27 +144,32 @@ void Adafruit_GFX::drawCircleHelper( int16_t x0, int16_t y0, int16_t r, uint8_t 
 		x++;
 		ddF_x += 2;
 		f		 += ddF_x;
-		if (cornername & 0x4) 
-		{
-			drawPixel(x0 + x, y0 + y, color);
-			drawPixel(x0 + y, y0 + x, color);
-		} 
-		if (cornername & 0x2) 
-		{
-			drawPixel(x0 + x, y0 - y, color);
-			drawPixel(x0 + y, y0 - x, color);
+
+		if(pattern & 1){
+			if(cornername & 0x4){
+				drawPixel(x0 + x, y0 + y, color);
+				drawPixel(x0 + y, y0 + x, color);
+			} 
+			if(cornername & 0x2){
+				drawPixel(x0 + x, y0 - y, color);
+				drawPixel(x0 + y, y0 - x, color);
+			}
+			if(cornername & 0x8){
+				drawPixel(x0 - y, y0 + x, color);
+				drawPixel(x0 - x, y0 + y, color);
+			}
+			if(cornername & 0x1){
+				drawPixel(x0 - y, y0 - x, color);
+				drawPixel(x0 - x, y0 - y, color);
+			}
 		}
-		if (cornername & 0x8) 
-		{
-			drawPixel(x0 - y, y0 + x, color);
-			drawPixel(x0 - x, y0 + y, color);
-		}
-		if (cornername & 0x1) 
-		{
-			drawPixel(x0 - y, y0 - x, color);
-			drawPixel(x0 - x, y0 - y, color);
-		}
+		uint16_t carry = pattern & 1;
+		pattern >>= 1;
+		if(carry)
+			pattern |= 0x8000;		
 	}
+
+	return pattern;
 }
 
 void Adafruit_GFX::fillCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color, uint16_t pattern){
@@ -348,20 +353,30 @@ void Adafruit_GFX::fillScreen(uint16_t color)
 }
 
 // draw a rounded rectangle!
-void Adafruit_GFX::drawRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color) 
-{
+void Adafruit_GFX::drawRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color, uint16_t pattern){
 
-	// smarter version
-	drawFastHLine(x+r	, y		, w-2*r, color); // Top
-	drawFastHLine(x+r	, y+h-1, w-2*r, color); // Bottom
-	drawFastVLine(	x		, y+r	, h-2*r, color); // Left
-	drawFastVLine(	x+w-1, y+r	, h-2*r, color); // Right
+	if(pattern == 0xffff){
+		// smarter version
+		drawFastHLine(x+r	, y		, w-2*r, color); // Top
+		drawFastHLine(x+r	, y+h-1, w-2*r, color); // Bottom
+		drawFastVLine(	x		, y+r	, h-2*r, color); // Left
+		drawFastVLine(	x+w-1, y+r	, h-2*r, color); // Right
 
-	// draw four corners
-	drawCircleHelper(x+r		, y+r		, r, 1, color);
-	drawCircleHelper(x+w-r-1, y+r		, r, 2, color);
-	drawCircleHelper(x+w-r-1, y+h-r-1, r, 4, color);
-	drawCircleHelper(x+r		, y+h-r-1, r, 8, color);
+		// draw four corners
+		drawCircleHelper(x+r		, y+r		, r, 1, color);
+		drawCircleHelper(x+w-r-1, y+r		, r, 2, color);
+		drawCircleHelper(x+w-r-1, y+h-r-1, r, 4, color);
+		drawCircleHelper(x+r		, y+h-r-1, r, 8, color);
+	} else {
+		pattern = drawLine(x+r, y, x+w-r, y,   color, pattern);
+		pattern = drawCircleHelper(x+w-r-1, y+r		, r, 2, color, pattern);
+		pattern = drawLine(x+w-1, y+r, x+w-1, y+h-r,   color, pattern);
+		pattern = drawCircleHelper(x+w-r-1, y+h-r-1, r, 4, color, pattern);
+		pattern = drawLine(x+r, y+h-1, x+w-r, y+h-1, color, pattern);
+		pattern = drawCircleHelper(x+r, y+h-r-1, r, 8, color, pattern);
+		pattern = drawLine(x, y+r, x, y+h-r,   color, pattern);
+		pattern = drawCircleHelper(x+r, y+r, r, 1, color, pattern);
+	}
 }
 
 // fill a rounded rectangle!
