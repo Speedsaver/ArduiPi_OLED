@@ -132,12 +132,24 @@ extern "C" void PiOLED_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, 
 	extDisplay->drawLine(x0, y0, x1, y1, color);
 }
 
+extern "C" void PiOLED_DrawLinePat(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color, uint16_t pat){
+	extDisplay->drawLine(x0, y0, x1, y1, color, pat);
+}
+
 extern "C" void PiOLED_DrawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color){
 	extDisplay->drawRect(x, y, w, h, color);
 }
 
+extern "C" void PiOLED_DrawRectPat(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t pat){
+	extDisplay->drawRect(x, y, w, h, color, pat);
+}
+
 extern "C" void PiOLED_FillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color){
 	extDisplay->fillRect(x, y, w, h, color);
+}
+
+extern "C" void PiOLED_FillRectPat(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t pat){
+	extDisplay->fillRect(x, y, w, h, color, pat);
 }
 
 extern "C" void PiOLED_DrawVerticalBargraph(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t percent){
