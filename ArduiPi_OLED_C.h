@@ -62,7 +62,9 @@ extern void PiOLED_DrawVerticalBargraph(int16_t x, int16_t y, int16_t w, int16_t
 extern void PiOLED_DrawHorizontalBargraph(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t percent);
 extern void PiOLED_FillScreen(uint16_t color);
 extern void PiOLED_DrawRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color);
+extern void PiOLED_DrawRoundRectPat(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color, uint16_t pat);
 extern void PiOLED_FillRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color);
+extern void PiOLED_FillRoundRectPat(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color, uint16_t pat);
 extern void PiOLED_DrawTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color);
 extern void PiOLED_FillTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color);
 extern void PiOLED_DrawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color);

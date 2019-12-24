@@ -168,8 +168,16 @@ extern "C" void PiOLED_DrawRoundRect(int16_t x, int16_t y, int16_t w, int16_t h,
 	extDisplay->drawRoundRect(x, y, w, h, r, color);
 }
 
+extern "C" void PiOLED_DrawRoundRectPat(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color, uint16_t pat){
+	extDisplay->drawRoundRect(x, y, w, h, r, color, pat);
+}
+
 extern "C" void PiOLED_FillRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color){
 	extDisplay->fillRoundRect(x, y, w, h, r, color);
+}
+
+extern "C" void PiOLED_FillRoundRectPat(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color, uint16_t pat){
+	extDisplay->fillRoundRect(x, y, w, h, r, color, pat);
 }
 
 extern "C" void PiOLED_DrawTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color){

@@ -130,7 +130,7 @@ void testdrawroundrect(){
 
 	PiOLED_ClearDisplay();
 	for(i=0; i<PiOLED_DisplayHeight()/2-2; i+=4){
-		PiOLED_DrawRoundRect(i, i, PiOLED_DisplayWidth()-2*i, PiOLED_DisplayHeight()-2*i, PiOLED_DisplayHeight()/4, WHITE);
+		PiOLED_DrawRoundRectPat(i, i, PiOLED_DisplayWidth()-2*i, PiOLED_DisplayHeight()-2*i, PiOLED_DisplayHeight()/4, WHITE, 0xcccc);
 		PiOLED_Display();
 	}
 	sleep(1);
@@ -146,7 +146,7 @@ void testfillroundrect(){
 
 	PiOLED_ClearDisplay();
 	for(i=0; i<PiOLED_DisplayHeight()/2-2; i+=4){
-		PiOLED_FillRoundRect(i, i, PiOLED_DisplayWidth()-2*i, PiOLED_DisplayHeight()-2*i, PiOLED_DisplayHeight()/4, color++%2);
+		PiOLED_FillRoundRectPat(i, i, PiOLED_DisplayWidth()-2*i, PiOLED_DisplayHeight()-2*i, PiOLED_DisplayHeight()/4, color++%2, 0xcccc);
 		PiOLED_Display();
 	}
 	sleep(1);
@@ -375,10 +375,11 @@ int main( int ac, char **av ){
 /*
 	testdrawline();
 	testdrawrect();
-*/
 	testfillrect();
-/*	testdrawroundrect();
+	testdrawroundrect();
+*/
 	testfillroundrect();
+/*
 	testdrawtriangle();
 	testfilltriangle();
 	testdrawcircle();
@@ -386,5 +387,11 @@ int main( int ac, char **av ){
 	testhbar();
 	testvbar();
 */
+
+	PiOLED_SaveToPBM("/tmp/tst.pbm");
+
+	PiOLED_ClearDisplay();	// Save the display life
+	PiOLED_Display();
+
 	PiOLED_Close();	// Free resources
 }
