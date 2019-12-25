@@ -124,8 +124,16 @@ extern "C" void PiOLED_DrawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t co
 	extDisplay->drawCircle(x0, y0, r, color);
 }
 
+extern "C" void PiOLED_DrawCirclePat(int16_t x0, int16_t y0, int16_t r, uint16_t color, uint16_t pat){
+	extDisplay->drawCircle(x0, y0, r, color);
+}
+
 extern "C" void PiOLED_FillCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color){
 	extDisplay->fillCircle(x0, y0, r, color);
+}
+
+extern "C" void PiOLED_FillCirclePat(int16_t x0, int16_t y0, int16_t r, uint16_t color, uint16_t pat){
+	extDisplay->fillCircle(x0, y0, r, color, pat);
 }
 
 extern "C" void PiOLED_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color){
@@ -184,8 +192,16 @@ extern "C" void PiOLED_DrawTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t 
 	extDisplay->drawTriangle(x0, y0, x1, y1, x2, y2, color);
 }
 
+extern "C" void PiOLED_DrawTrianglePat(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color, uint16_t pat){
+	extDisplay->drawTriangle(x0, y0, x1, y1, x2, y2, color, pat);
+}
+
 extern "C" void PiOLED_FillTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color){
 	extDisplay->fillTriangle(x0, y0, x1, y1, x2, y2, color);
+}
+
+extern "C" void PiOLED_FillTrianglePat(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color, uint16_t pat){
+	extDisplay->fillTriangle(x0, y0, x1, y1, x2, y2, color, pat);
 }
 
 extern "C" void PiOLED_DrawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color){

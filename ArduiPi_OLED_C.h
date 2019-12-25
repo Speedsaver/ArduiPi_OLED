@@ -51,7 +51,9 @@ extern void PiOLED_Flip( boolean );
 extern boolean PiOLED_SaveToPBM(const char *);
 
 extern void PiOLED_DrawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color);
+extern void PiOLED_DrawCirclePat(int16_t x0, int16_t y0, int16_t r, uint16_t color, uint16_t pat);
 extern void PiOLED_FillCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color);
+extern void PiOLED_FillCirclePat(int16_t x0, int16_t y0, int16_t r, uint16_t color, uint16_t pat);
 extern void PiOLED_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color);
 extern void PiOLED_DrawLinePat(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color, uint16_t pat);
 extern void PiOLED_DrawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
@@ -66,7 +68,9 @@ extern void PiOLED_DrawRoundRectPat(int16_t x, int16_t y, int16_t w, int16_t h, 
 extern void PiOLED_FillRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color);
 extern void PiOLED_FillRoundRectPat(int16_t x, int16_t y, int16_t w, int16_t h, int16_t r, uint16_t color, uint16_t pat);
 extern void PiOLED_DrawTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color);
+extern void PiOLED_DrawTrianglePat(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color, uint16_t pat);
 extern void PiOLED_FillTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color);
+extern void PiOLED_FillTrianglePat(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color, uint16_t pat);
 extern void PiOLED_DrawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color);
 extern void PiOLED_Write(byte c);
 extern void PiOLED_Print(const char *string);

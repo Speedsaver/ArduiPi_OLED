@@ -161,10 +161,10 @@ void testdrawtriangle(){
 
 	PiOLED_ClearDisplay();
 	for (i=min(PiOLED_DisplayWidth(),PiOLED_DisplayHeight())/2; i>0; i-=5){
-		PiOLED_DrawTriangle(
+		PiOLED_DrawTrianglePat(
 			PiOLED_DisplayWidth()/2, PiOLED_DisplayHeight()/2-i,
 			PiOLED_DisplayWidth()/2-i, PiOLED_DisplayHeight()/2+i,
-			PiOLED_DisplayWidth()/2+i, PiOLED_DisplayHeight()/2+i, WHITE
+			PiOLED_DisplayWidth()/2+i, PiOLED_DisplayHeight()/2+i, WHITE, 0xcccc
 		);
 		PiOLED_Display();
 	}
@@ -181,10 +181,10 @@ void testfilltriangle(){
 
 	PiOLED_ClearDisplay();
 	for (i=min(PiOLED_DisplayWidth(),PiOLED_DisplayHeight())/2; i>0; i-=5){
-		PiOLED_FillTriangle(
+		PiOLED_FillTrianglePat(
 			PiOLED_DisplayWidth()/2, PiOLED_DisplayHeight()/2-i,
 			PiOLED_DisplayWidth()/2-i, PiOLED_DisplayHeight()/2+i,
-			PiOLED_DisplayWidth()/2+i, PiOLED_DisplayHeight()/2+i, color++%2
+			PiOLED_DisplayWidth()/2+i, PiOLED_DisplayHeight()/2+i, color++%2, 0xcccc
 		);
 		PiOLED_Display();
 	}
@@ -200,7 +200,7 @@ void testdrawcircle(){
 
 	PiOLED_ClearDisplay();
 	for(i=0; i<PiOLED_DisplayHeight(); i+=2){
-		PiOLED_DrawCircle(PiOLED_DisplayWidth()/2, PiOLED_DisplayHeight()/2, i, WHITE);
+		PiOLED_DrawCirclePat(PiOLED_DisplayWidth()/2, PiOLED_DisplayHeight()/2, i, WHITE, 0xcccc);
 		PiOLED_Display();
 	}
 	sleep(1);
@@ -216,51 +216,11 @@ void testfillcircle(){
 
 	PiOLED_ClearDisplay();
 	for(i=PiOLED_DisplayHeight(); i>=5; i-=4){
-		PiOLED_FillCircle(PiOLED_DisplayWidth()/2, PiOLED_DisplayHeight()/2, i, color++%2);
+		PiOLED_FillCirclePat(PiOLED_DisplayWidth()/2, PiOLED_DisplayHeight()/2, i, color++%2, 0xcccc);
 		PiOLED_Display();
 	}
 	sleep(1);
 	
-}
-
-void testhbar(){
-	int i;
-
-	PiOLED_SetTextSize(1);
-
-	for(i=0; i<=100; i++){
-		PiOLED_ClearDisplay();
-		PiOLED_SetTextColor2(BLACK,WHITE);
-		PiOLED_SetCursor(0,0);
-		PiOLED_Print("Gauge Graph!");
-		PiOLED_SetTextColor(WHITE);
-		PiOLED_SetCursor(20,10);
-		PiOLED_Printf("%03d %%", i);
-		PiOLED_DrawHorizontalBargraph(0,20, (int16_t) PiOLED_DisplayWidth(),10,1, i);
-		PiOLED_Display();
-	}
-
-	sleep(1);
-}
-
-void testvbar(){
-	int i;
-
-	PiOLED_SetTextSize(1);
-
-	for(i=0; i<=100; i++){
-		PiOLED_ClearDisplay();
-		PiOLED_SetTextColor2(BLACK,WHITE);
-		PiOLED_SetCursor(0,0);
-		PiOLED_Print("Gauge Graph!");
-		PiOLED_SetTextColor(WHITE);
-		PiOLED_SetCursor(20,10);
-		PiOLED_Printf("%03d %%", i);
-		PiOLED_DrawVerticalBargraph(114,0,8,(int16_t) PiOLED_DisplayHeight(),1, i);
-		PiOLED_Display();
-	}
-
-	sleep(1);
 }
 
 /****
@@ -372,23 +332,17 @@ int main( int ac, char **av ){
 	}
 #endif
 
-/*
 	testdrawline();
 	testdrawrect();
 	testfillrect();
 	testdrawroundrect();
-*/
 	testfillroundrect();
-/*
 	testdrawtriangle();
 	testfilltriangle();
 	testdrawcircle();
 	testfillcircle();
-	testhbar();
-	testvbar();
-*/
 
-	PiOLED_SaveToPBM("/tmp/tst.pbm");
+/*	PiOLED_SaveToPBM("/tmp/tst.pbm"); */
 
 	PiOLED_ClearDisplay();	// Save the display life
 	PiOLED_Display();
