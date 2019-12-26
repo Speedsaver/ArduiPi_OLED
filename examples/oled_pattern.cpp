@@ -273,4 +273,8 @@ int main(int argc, char **argv){
 	testfillroundrect();
 
 	display.SaveToPBM("/tmp/tst.pbm");
+
+	display.OnOff(0);	// Save display life
+
+	display.close();
 }

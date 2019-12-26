@@ -527,6 +527,8 @@ int main(int argc, char **argv)
   // draw a bitmap icon and 'animate' movement
   testdrawbitmap(logo16_glcd_bmp, LOGO16_GLCD_HEIGHT, LOGO16_GLCD_WIDTH);
 
+	display.OnOff(0);	// Save display life
+
 	// Free PI GPIO ports
 	display.close();
 

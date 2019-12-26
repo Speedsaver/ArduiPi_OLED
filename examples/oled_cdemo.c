@@ -510,5 +510,7 @@ int main( int ac, char **av ){
 	testsimplebitmap();
 	testinvert();
 
+	PiOLED_OnOff(0);	// Save display life
+
 	PiOLED_Close();	// Free resources
 }
