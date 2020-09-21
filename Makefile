@@ -92,7 +92,9 @@ install:
 	@echo "[Install Headers]"
 	@if ( test ! -d $(PREFIX)/include ) ; then mkdir -p $(PREFIX)/include ; fi
 	@cp -f  Adafruit_*.h $(PREFIX)/include
-	@cp -f  ArduiPi_*.h $(PREFIX)/include
+	@cp -f  ArduiPi_OLED.h $(PREFIX)/include
+	@cp -f  ArduiPi_OLED_C.h $(PREFIX)/include
+	@cp -f  ArduiPi_OLED_lib.h $(PREFIX)/include
 
 
 # Uninstall the library 

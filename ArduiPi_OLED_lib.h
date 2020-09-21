@@ -31,7 +31,6 @@
 #include <string.h>
 #include <unistd.h> 
 #include <stdint.h>
-#include "ArduiPi_OLED_devio.h"
 
 // Dummy value definitions for hallard's ArduiPi_OLED code
 #define OLED_SPI_RESET	0

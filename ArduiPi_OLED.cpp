@@ -49,6 +49,7 @@ All text above, and the splash screen below must be included in any redistributi
 #include "./ArduiPi_OLED_lib.h" 
 #include "./Adafruit_GFX.h"
 #include "./ArduiPi_OLED.h"
+#include "./ArduiPi_OLED_devio.h"
 
   // 8x8 Font ASCII 32 - 127 Implemented
 // Users can modify this to support more characters(glyphs)
