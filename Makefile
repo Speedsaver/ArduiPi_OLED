@@ -20,6 +20,9 @@
 # 21/09/2020	JG1UAA (http://github.com/jg1uaa)
 #		add default setting for BananaPi (for compatibility)
 #		rename dev_io.[ch] -> ArduiPi_OLED_devio.[ch]
+# 22/09/2020	JG1UAA (http://github.com/jg1uaa)
+#		revise installed headers to $(PREFIX)/include
+#		do not delete ${LIBDIR}/${LIB}.* when make clean
 # *********************************************************************
 
 # Makefile itself dir
@@ -107,4 +110,4 @@ uninstall:
 
 # clear build files
 clean:
-	rm -rf *.o *.gch ${LIB}.* ${LIBDIR}/${LIB}.*
+	rm -rf *.o *.gch ${LIB}.*
