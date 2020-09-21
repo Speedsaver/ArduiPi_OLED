@@ -41,6 +41,8 @@ All text above, and the splash screen below must be included in any redistributi
 			Add OnOff()
 30/12/2018  Destroyedlolo (http://destroyedlolo.info)
 			Add Flip()
+21/09/2020  JG1UAA (https://github.com/jg1uaa)
+			Add hallard's ArduiPi_OLED compatible layer
             
 *********************************************************************/
 
@@ -251,7 +253,16 @@ ArduiPi_OLED::ArduiPi_OLED()
 }
 
 
+// tell apps to SPI not supported
+boolean ArduiPi_OLED::oled_is_spi_proto(uint8_t OLED_TYPE){
+  return false;
+}
+
 // initializer for OLED Type
+boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE){
+  return select_oled(OLED_TYPE, I2C_DEV);
+}
+
 boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE, const char *dev){
   // Default type
   oled_width  = 128;
@@ -325,6 +336,14 @@ boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE, const char *dev){
   }
 
   return true;
+}
+
+boolean ArduiPi_OLED::init(int8_t dc, int8_t rst, int8_t cs, uint8_t oled_type){
+    return false;	// SPI not supported
+}
+
+boolean ArduiPi_OLED::init(int8_t rst, uint8_t oled_type){
+    return select_oled(oled_type);
 }
 
 boolean ArduiPi_OLED::init(uint8_t oled_type, const char *dev){

@@ -16,6 +16,8 @@
 	--- European time format ---
 25/12/2018	Destroyedlolo (http://destroyedlolo.info)
 	Remove SPI as not supported
+21/09/2020	JG1UAA (http://githubs.com/jg1uaa)
+	Add hallard's ArduiPi_OLED compatible layer
 
  ******************************************************************/
 
@@ -29,6 +31,14 @@
 #include <unistd.h> 
 #include <stdint.h>
 #include "dev_io.h"
+
+// Dummy value definitions for hallard's ArduiPi_OLED code
+#define OLED_SPI_RESET	0
+#define OLED_SPI_DC	0
+#define OLED_SPI_CS0	0
+#define OLED_SPI_CS1	0
+#define OLED_SPI_CS	0
+#define OLED_I2C_RESET	0
 
 // Oled supported display
 enum { 

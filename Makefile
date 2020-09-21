@@ -17,6 +17,8 @@
 #	--- European times format ---
 # 23/12/2018    Destroyedlolo (http://destroyedlolo.info)
 # 		Make platform agnostic
+# 21/09/2020	JG1UAA (http://github.com/jg1uaa)
+#		add default setting for BananaPi (for compatibility)
 # *********************************************************************
 
 # Makefile itself dir
@@ -43,6 +45,12 @@ CFLAGS=-march=native -Ofast -pipe
 CXX=g++
 CC=gcc
 CFLAGS=$(CCFLAGS)
+
+# board specific settings (only for Banana Pi)
+ifeq ($(BOARD), bananapi)
+CFLAGS+=-DBANANAPI
+CCFLAGS+=-DBANANAPI
+endif
 
 # make all
 all: ArduiPi_OLED 
@@ -81,8 +89,8 @@ install:
 	@cp -f  Adafruit_*.h $(PREFIX)/include
 	@cp -f  ArduiPi_*.h $(PREFIX)/include
 	@cp -f  dev_io.h $(PREFIX)/include
-	
-	
+
+
 # Uninstall the library 
 uninstall: 
 	@echo "[Uninstall Library]"
@@ -91,9 +99,7 @@ uninstall:
 	@echo "[Uninstall Headers]"
 	@rm -rf  $(PREFIX)/include/ArduiPi_OLED*
 	@rm -rf  $(PREFIX)/include/dev_io.h
-	
+
 # clear build files
 clean:
 	rm -rf *.o *.gch ${LIB}.* ${LIBDIR}/${LIB}.*
-
-

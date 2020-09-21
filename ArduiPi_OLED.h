@@ -31,6 +31,8 @@ All text above, and the splash screen must be included in any redistribution
 			Add Flip()
 03/01/2019	Destroyedlolo (http://destroyedlolo.info)
 			Add SaveToPBM()
+21/09/2020	JG1UAA (https://github.com/jg1uaa)
+			Add hallard's ArduiPi_OLED compatible layer
  
 *********************************************************************/
 
@@ -159,9 +161,17 @@ class ArduiPi_OLED : public Adafruit_GFX
  public:
   ArduiPi_OLED();
 
+  // SPI Init (compatibility for hallard's code, always return false)
+  boolean init(int8_t DC, int8_t RST, int8_t CS, uint8_t OLED_TYPE);
+
+  // I2C Init (compatibility for hallard's code, default device)
+  boolean init(int8_t RST, uint8_t OLED_TYPE);
+
+  // I2C Init (destroyedlolo's extension)
   boolean init(uint8_t OLED_TYPE, const char *device);
 
   boolean oled_is_spi_proto(uint8_t OLED_TYPE); /* to know protocol before init */
+  boolean select_oled(uint8_t OLED_TYPE) ;      /* default device */
   boolean select_oled(uint8_t OLED_TYPE, const char *device);
   
   void begin(void);
@@ -213,7 +223,6 @@ class ArduiPi_OLED : public Adafruit_GFX
   inline boolean isI2C(void);
   inline boolean isSPI(void);
 
-  
   //volatile uint8_t *dcport;
   //uint8_t dcpinmask;
 };
