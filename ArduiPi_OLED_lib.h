@@ -18,6 +18,7 @@
 	Remove SPI as not supported
 21/09/2020	JG1UAA (http://githubs.com/jg1uaa)
 	Add hallard's ArduiPi_OLED compatible layer
+	Rename dev_io.h -> ArduiPi_OLED_devio.h
 
  ******************************************************************/
 
@@ -30,7 +31,7 @@
 #include <string.h>
 #include <unistd.h> 
 #include <stdint.h>
-#include "dev_io.h"
+#include "ArduiPi_OLED_devio.h"
 
 // Dummy value definitions for hallard's ArduiPi_OLED code
 #define OLED_SPI_RESET	0

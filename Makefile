@@ -19,6 +19,7 @@
 # 		Make platform agnostic
 # 21/09/2020	JG1UAA (http://github.com/jg1uaa)
 #		add default setting for BananaPi (for compatibility)
+#		rename dev_io.[ch] -> ArduiPi_OLED_devio.[ch]
 # *********************************************************************
 
 # Makefile itself dir
@@ -56,22 +57,22 @@ endif
 all: ArduiPi_OLED 
 
 # Make the library
-ArduiPi_OLED: ArduiPi_OLED.o Adafruit_GFX.o ArduiPi_OLED_C.o dev_io.o
+ArduiPi_OLED: ArduiPi_OLED.o Adafruit_GFX.o ArduiPi_OLED_C.o ArduiPi_OLED_devio.o
 	$(CXX) -shared -Wl,-soname,$(LIB).so.2 $(CFLAGS) $(LDFLAGS)  -o ${LIBNAME} $^
 	@ln -sf ${LIBNAME} ${LIB}.so.2
 	@ln -sf ${LIBNAME} ${LIB}.so
 
 # Library parts (use -fno-rtti flag to avoid link problem)
-ArduiPi_OLED.o: ArduiPi_OLED.cpp dev_io.h ArduiPi_OLED_lib.h ArduiPi_OLED.h Adafruit_GFX.h
+ArduiPi_OLED.o: ArduiPi_OLED.cpp ArduiPi_OLED_devio.h ArduiPi_OLED_lib.h ArduiPi_OLED.h Adafruit_GFX.h
 	$(CXX) -Wall -fPIC -fno-rtti $(CCFLAGS) -c $^
 
-Adafruit_GFX.o: Adafruit_GFX.cpp dev_io.h ArduiPi_OLED_lib.h
+Adafruit_GFX.o: Adafruit_GFX.cpp ArduiPi_OLED_devio.h ArduiPi_OLED_lib.h
 	$(CXX) -Wall -fPIC -fno-rtti $(CCFLAGS) -c $^
 
-dev_io.o: dev_io.c dev_io.h
+ArduiPi_OLED_devio.o: ArduiPi_OLED_devio.c ArduiPi_OLED_devio.h
 	$(CC) -Wall -fPIC $(CFLAGS) -c $^
 
-ArduiPi_OLED_C.o: ArduiPi_OLED_C.cpp ArduiPi_OLED_lib.h Adafruit_GFX.h ArduiPi_OLED.h ArduiPi_OLED_C.h dev_io.h
+ArduiPi_OLED_C.o: ArduiPi_OLED_C.cpp ArduiPi_OLED_lib.h Adafruit_GFX.h ArduiPi_OLED.h ArduiPi_OLED_C.h ArduiPi_OLED_devio.h
 	$(CXX) -Wall -fPIC -fno-rtti $(CCFLAGS) -c $^
 
 # Install the library to LIBPATH
@@ -88,7 +89,6 @@ install:
 	@if ( test ! -d $(PREFIX)/include ) ; then mkdir -p $(PREFIX)/include ; fi
 	@cp -f  Adafruit_*.h $(PREFIX)/include
 	@cp -f  ArduiPi_*.h $(PREFIX)/include
-	@cp -f  dev_io.h $(PREFIX)/include
 
 
 # Uninstall the library 
@@ -98,7 +98,6 @@ uninstall:
 
 	@echo "[Uninstall Headers]"
 	@rm -rf  $(PREFIX)/include/ArduiPi_OLED*
-	@rm -rf  $(PREFIX)/include/dev_io.h
 
 # clear build files
 clean:

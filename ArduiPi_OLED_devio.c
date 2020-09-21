@@ -6,6 +6,9 @@
  *
  * 23/12/2018  Destroyedlolo (http://destroyedlolo.info)
  * 	The I2C device is passed in argument to lcd_dev_open()
+ *
+ * 21/09/2020  JG1UAA (https://github.com/jg1uaa)
+ *	Rename dev_io.h -> ArduiPi_OLED_devio.h
  */
 
 #include <stdio.h>
@@ -17,7 +20,7 @@
 #include <sys/ioctl.h>
 #include <linux/i2c-dev.h>
 #include <string.h>
-#include "dev_io.h"
+#include "ArduiPi_OLED_devio.h"
 
 int i2c_fd = -1;
 
