@@ -43,8 +43,8 @@ LIBNAME=$(LIB).so.2${LIBSUB}
 # -march=armv7-a -mfpu=vfpv3-d16 -mfloat-abi=hard
 CFLAGS=-march=native -Ofast -pipe
 
-CXX=g++
-CC=gcc
+CXX=c++
+CC=cc
 CFLAGS=$(CCFLAGS)
 
 # board specific settings (only for Banana Pi)
