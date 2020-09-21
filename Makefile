@@ -49,9 +49,11 @@ CFLAGS=$(CCFLAGS)
 
 # board specific settings (only for Banana Pi)
 ifeq ($(BOARD), bananapi)
-CFLAGS+=-DBANANAPI
-CCFLAGS+=-DBANANAPI
+I2C_DEV="/dev/i2c-2"
+else
+I2C_DEV="/dev/i2c-0"
 endif
+CFLAGS+=-DI2C_DEV='$(I2C_DEV)'
 
 # make all
 all: ArduiPi_OLED 

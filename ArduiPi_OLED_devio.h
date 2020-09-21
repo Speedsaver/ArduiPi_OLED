@@ -9,6 +9,7 @@
  *
  * 21/09/2020  JG1UAA (https://github.com/jg1uaa)
  *	Rename dev_io.h -> ArduiPi_OLED_devio.h
+ *	Remove I2C_DEV, add lcd_dev_default_device()
  */
 
 #ifndef ArduiPi_OLED_devio_H
@@ -19,11 +20,6 @@
 #define DEV_TYPE_I2C 1
 #define DEV_TYPE_SPI 2
 
-#ifdef BANANAPI
-#	define I2C_DEV "/dev/i2c-2"
-#else
-#	define I2C_DEV "/dev/i2c-0"
-#endif
 #define I2C_ADDR 0x3c
 
 #define DEV_TYPE 1
@@ -35,6 +31,7 @@ extern "C" {
     int lcd_dev_open(const char *dev);
     int lcd_dev_write(uint8_t* data, int len);
     void lcd_dev_close();
+    char *lcd_dev_default_device();
 
 #if defined (__cplusplus)
 }

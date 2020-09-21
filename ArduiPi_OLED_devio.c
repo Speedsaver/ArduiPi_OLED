@@ -9,6 +9,7 @@
  *
  * 21/09/2020  JG1UAA (https://github.com/jg1uaa)
  *	Rename dev_io.h -> ArduiPi_OLED_devio.h
+ *	Add lcd_dev_default_device()
  */
 
 #include <stdio.h>
@@ -81,3 +82,6 @@ void lcd_dev_close() {
     
 }
 
+char *lcd_dev_default_device() {
+    return I2C_DEV;
+}

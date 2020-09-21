@@ -260,7 +260,7 @@ boolean ArduiPi_OLED::oled_is_spi_proto(uint8_t OLED_TYPE){
 
 // initializer for OLED Type
 boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE){
-  return select_oled(OLED_TYPE, I2C_DEV);
+  return select_oled(OLED_TYPE, lcd_dev_default_device());
 }
 
 boolean ArduiPi_OLED::select_oled(uint8_t OLED_TYPE, const char *dev){
