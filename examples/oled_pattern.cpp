@@ -3,6 +3,8 @@
  *
  * 07/08/2019 Destroyedlolo (http://destroyedlolo.info)
  *	First version
+ * 25/09/2020	JG1UAA (http://github.com/jg1uaa)
+ *		opts.oled and opts.port is defined as symbol
  *********************************************************************/
 
 #include "ArduiPi_OLED_lib.h"
@@ -27,9 +29,9 @@ struct s_opts
 };
 
 struct s_opts opts = {
-	OLED_ADAFRUIT_I2C_128x64,	// Default oled
+	OLED_TYPE,			// Default oled
 	true,					// Not verbose
-	"/dev/i2c-2"			// default port
+	I2C_DEV				// default port
 };
 
 int sleep_divisor = 1 ;

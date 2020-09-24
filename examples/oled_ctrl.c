@@ -10,6 +10,8 @@
  * 30/12/2018	Destroyedlolo (http://destroyedlolo.info)
  * 		Rename to oled_ctrl
  * 		Add flip
+ * 25/09/2020	JG1UAA (http://github.com/jg1uaa)
+ *		opts.oled and opts.port is defined as symbol
  */
 
 #include "ArduiPi_OLED_C.h"
@@ -27,9 +29,9 @@ struct s_opts {
 };
 
 struct s_opts opts = {
-	OLED_ADAFRUIT_I2C_128x64,	// Default oled
+	OLED_TYPE,			// Default oled
 	true,					// Not verbose
-	"/dev/i2c-2"			// default port
+	I2C_DEV				// default port
 };
 
 /****

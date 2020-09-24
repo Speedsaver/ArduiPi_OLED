@@ -36,6 +36,16 @@ CC=cc
 # -march=armv7-a -mfpu=vfpv3-d16 -mfloat-abi=hard
 CFLAGS=-march=native -Ofast -pipe -Wall
 
+# board/device specific settings
+ifeq ($(I2C_DEV), )
+  I2C_DEV="/dev/i2c-2"
+endif
+ifeq ($(OLED_TYPE), )
+  OLED_TYPE="OLED_ADAFRUIT_I2C_128x64"
+endif
+CFLAGS+=-DI2C_DEV='$(I2C_DEV)'
+CFLAGS+=-DOLED_TYPE=$(OLED_TYPE)
+
 all: ${PROGRAMS} ${CPROGRAMS}
 
 ${PROGRAMS}: ${SOURCES}
