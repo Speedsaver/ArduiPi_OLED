@@ -42,7 +42,9 @@
 
 // Oled supported display
 enum { 
-	OLED_ADAFRUIT_I2C_128x32 = 0,
+	OLED_ADAFRUIT_SPI_128x32 = 0,	/* unsupported */
+	OLED_ADAFRUIT_SPI_128x64,	/* unsupported */
+	OLED_ADAFRUIT_I2C_128x32,
 	OLED_ADAFRUIT_I2C_128x64,
 	OLED_SEEED_I2C_128x64,
 	OLED_SEEED_I2C_96x96,
@@ -51,6 +53,8 @@ enum {
 };
 
 static const char * oled_type_str[] = {
+    "SSD1306 (Adafruit) SPI 128x32",	/* unsupported */
+    "SSD1306 (Adafruit) SPI 128x64",	/* unsupported */
     "SSD1306 (Adafruit) I2C 128x32",
     "SSD1306 (Adafruit) I2C 128x64",
     "SSD1308 (Seeed) I2C 128x64",

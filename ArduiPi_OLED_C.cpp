@@ -25,6 +25,8 @@ All text above, and the splash screen below must be included in any redistributi
 30/12/2018	Destroyedlolo (http://destroyedlolo.info)
 			Rename this file
 			Add Flip()
+24/09/2020	JG1UAA (https://github.com/jg1uaa)
+			oledType range at PiOLED_Init() changed
 *********************************************************************/
 
 #include "./ArduiPi_OLED_C.h"
@@ -39,8 +41,8 @@ extern "C" boolean PiOLED_Init(int oledType, const char *dev){
 	if (extDisplay != NULL)	// Already done
 		return 1;
 
-	if (oledType < 0 || oledType >= OLED_LAST_OLED)
-		oledType = 0;
+	if (oledType < OLED_ADAFRUIT_I2C_128x32 || oledType >= OLED_LAST_OLED)
+		oledType = OLED_ADAFRUIT_I2C_128x32;
 
 	extDisplay = new ArduiPi_OLED();
 
