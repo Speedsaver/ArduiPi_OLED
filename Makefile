@@ -23,6 +23,9 @@
 # 22/09/2020	JG1UAA (http://github.com/jg1uaa)
 #		revise installed headers to $(PREFIX)/include
 #		do not delete ${LIBDIR}/${LIB}.* when make clean
+# 03/10/2020	JG1UAA (http://github.com/jg1uaa)
+#		do not run rm -rf ${LIB}.* when make install
+#		run ldconfig at last of install process
 # *********************************************************************
 
 # Makefile itself dir
@@ -89,8 +92,6 @@ install:
 	@install -m 0755 ${LIBNAME} ${LIBDIR}
 	@ln -sf ${LIBDIR}/${LIBNAME} ${LIBDIR}/${LIB}.so.2
 	@ln -sf ${LIBDIR}/${LIBNAME} ${LIBDIR}/${LIB}.so
-	@ldconfig
-	@rm -rf ${LIB}.*
 
 	@echo "[Install Headers]"
 	@if ( test ! -d $(PREFIX)/include ) ; then mkdir -p $(PREFIX)/include ; fi
@@ -99,6 +100,7 @@ install:
 	@cp -f  ArduiPi_OLED_C.h $(PREFIX)/include
 	@cp -f  ArduiPi_OLED_lib.h $(PREFIX)/include
 
+	@ldconfig
 
 # Uninstall the library 
 uninstall: 
