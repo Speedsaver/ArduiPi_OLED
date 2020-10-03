@@ -10,6 +10,10 @@
  * 21/09/2020  JG1UAA (https://github.com/jg1uaa)
  *	Rename dev_io.h -> ArduiPi_OLED_devio.h
  *	Add lcd_dev_default_device()
+ *
+ * 26/09/2020  JG1UAA (https://github.com/jg1uaa)
+ *	Add NetBSD I2C ioctl support
+ *	thanks to http://www.yagoto-urayama.jp/~oshimaya/netbsd/rpi_i2c.html
  */
 
 #include <stdio.h>
@@ -19,7 +23,11 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
+#if defined(__linux__)
 #include <linux/i2c-dev.h>
+#elif defined(__NetBSD__)
+#include <dev/i2c/i2c_io.h>
+#endif
 #include <string.h>
 #include "ArduiPi_OLED_devio.h"
 
@@ -31,10 +39,17 @@ int lcd_dev_open(const char *dev) {
         
         case DEV_TYPE_I2C:
             i2c_fd = open(dev, O_RDWR);
+#if defined(__linux__)
             if(ioctl(i2c_fd, I2C_SLAVE, I2C_ADDR) < 0) {
                 printf("I2C ioctl error : %s\r\n", strerror(errno));
                 return 0;
             }
+#elif defined(__NetBSD__)
+            if(i2c_fd < 0) {
+                printf("I2C open error\r\n");
+                return 0;
+            }
+#endif
             return 1;
             
         case DEV_TYPE_SPI:
@@ -49,13 +64,31 @@ int lcd_dev_open(const char *dev) {
 
 int lcd_dev_write(uint8_t* data, int len) {
     
+#if defined(__NetBSD__)
+    i2c_ioctl_exec_t cmd = {
+        .iie_op = I2C_OP_WRITE_WITH_STOP,
+        .iie_addr = I2C_ADDR,
+        .iie_cmd = &data[0],
+        .iie_cmdlen = 1,
+        .iie_buf = &data[1],
+        .iie_buflen = len - 1,
+    };
+#endif
+
     switch(DEV_TYPE) {
         
         case DEV_TYPE_I2C:
+#if defined(__linux__)
             if(write(i2c_fd, data, len) != len) {
                 printf("I2C write error : %s\r\n", strerror(errno));
                     return 0;
             }
+#elif defined(__NetBSD__)
+            if(ioctl(i2c_fd, I2C_IOCTL_EXEC, &cmd) < 0) {
+                printf("I2C write error : %s\r\n", strerror(errno));
+                    return 0;
+            }
+#endif
             return len;
             
         case DEV_TYPE_SPI:
