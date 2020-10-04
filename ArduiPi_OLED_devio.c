@@ -14,6 +14,9 @@
  * 26/09/2020  JG1UAA (https://github.com/jg1uaa)
  *	Add NetBSD I2C ioctl support
  *	thanks to http://www.yagoto-urayama.jp/~oshimaya/netbsd/rpi_i2c.html
+ *
+ * 04/10/2020  JG1UAA (https://github.com/jg1uaa)
+ *	Add ARDUIPI_OLED_I2CDEV variable to change default I2C device
  */
 
 #include <stdio.h>
@@ -116,5 +119,8 @@ void lcd_dev_close() {
 }
 
 char *lcd_dev_default_device() {
-    return I2C_DEV;
+    char *p;
+
+    p = getenv("ARDUIPI_OLED_I2CDEV");
+    return (p != NULL) ? p : I2C_DEV;
 }
