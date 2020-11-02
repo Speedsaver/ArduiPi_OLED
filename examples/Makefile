@@ -18,7 +18,7 @@
 # Makefile itself dir
 ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-prefix := /usr/local
+PREFIX ?= /usr/local
 
 # define all programs
 PROGRAMS = oled_demo oled_pattern
@@ -58,10 +58,10 @@ clean:
 	rm -rf $(PROGRAMS) $(CPROGRAMS) 
 
 install: all
-	test -d $(prefix) || mkdir $(prefix)
-	test -d $(prefix)/bin || mkdir $(prefix)/bin
+	test -d $(DESTDIR)$(PREFIX) || mkdir $(DESTDIR)$(PREFIX)
+	test -d $(DESTDIR)$(PREFIX)/bin || mkdir $(DESTDIR)$(PREFIX)/bin
 	for prog in $(PROGRAMS) $(CPROGRAMS); do \
-	  install -m 0755 $$prog $(prefix)/bin; \
+	  install -m 0755 $$prog $(DESTDIR)$(PREFIX)/bin; \
 	done
 
 .PHONY: install

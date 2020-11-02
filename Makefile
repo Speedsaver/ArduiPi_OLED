@@ -32,11 +32,10 @@
 ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 # Where you want it installed when you do 'make install'
-PREFIX=/usr/local
+PREFIX?=/usr/local
+LIBDIR=$(DESTDIR)$(PREFIX)/lib
+INCDIR=$(DESTDIR)$(PREFIX)/include
 
-# Library parameters
-# where to put the lib
-LIBDIR=$(PREFIX)/lib
 # lib name 
 LIB=libArduiPi_OLED
 # shared library name
@@ -88,19 +87,17 @@ ArduiPi_OLED_C.o: ArduiPi_OLED_C.cpp ArduiPi_OLED_lib.h Adafruit_GFX.h ArduiPi_O
 # Install the library to LIBPATH
 install: 
 	@echo "[Install Library]"
-	@if ( test ! -d $(PREFIX)/lib ) ; then mkdir -p $(PREFIX)/lib ; fi
+	@if ( test ! -d ${LIBDIR} ) ; then mkdir -p ${LIBDIR} ; fi
 	@install -m 0755 ${LIBNAME} ${LIBDIR}
 	@ln -sf ${LIBDIR}/${LIBNAME} ${LIBDIR}/${LIB}.so.2
 	@ln -sf ${LIBDIR}/${LIBNAME} ${LIBDIR}/${LIB}.so
 
 	@echo "[Install Headers]"
-	@if ( test ! -d $(PREFIX)/include ) ; then mkdir -p $(PREFIX)/include ; fi
-	@cp -f  Adafruit_*.h $(PREFIX)/include
-	@cp -f  ArduiPi_OLED.h $(PREFIX)/include
-	@cp -f  ArduiPi_OLED_C.h $(PREFIX)/include
-	@cp -f  ArduiPi_OLED_lib.h $(PREFIX)/include
-
-	@ldconfig
+	@if ( test ! -d ${{INCIR} ) ; then mkdir -p ${INCDIR} ; fi
+	@cp -f  Adafruit_*.h ${INCDIR}
+	@cp -f  ArduiPi_OLED.h ${INCDIR}
+	@cp -f  ArduiPi_OLED_C.h ${INCDIR}
+	@cp -f  ArduiPi_OLED_lib.h ${INCDIR}
 
 # Uninstall the library 
 uninstall: 
@@ -108,7 +105,7 @@ uninstall:
 	@rm -f ${LIBDIR}/${LIB}.*
 
 	@echo "[Uninstall Headers]"
-	@rm -rf  $(PREFIX)/include/ArduiPi_OLED*
+	@rm -rf  ${INCDIR}/ArduiPi_OLED*
 
 # clear build files
 clean:
