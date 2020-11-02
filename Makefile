@@ -82,8 +82,8 @@ install:
 	@echo "[Install Library]"
 	@if ( test ! -d ${LIBDIR} ) ; then mkdir -p ${LIBDIR} ; fi
 	@install -m 0755 ${LIBNAME} ${LIBDIR}
-	@ln -sf ${LIBDIR}/${LIBNAME} ${LIBDIR}/${LIB}.so.2
-	@ln -sf ${LIBDIR}/${LIBNAME} ${LIBDIR}/${LIB}.so
+	@ln -sf ${LIBNAME} ${LIBDIR}/${LIB}.so.2
+	@ln -sf ${LIBNAME} ${LIBDIR}/${LIB}.so
 
 	@echo "[Install Headers]"
 	@if ( test ! -d ${{INCIR} ) ; then mkdir -p ${INCDIR} ; fi
