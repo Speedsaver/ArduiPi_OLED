@@ -27,8 +27,8 @@ SOURCES = ${PROGRAMS:=.cpp}
 CPROGRAMS = oled_cdemo oled_cpattern oled_ctrl
 CSOURCES = ${CPROGRAMS:=.c}
 
-CXX=c++
-CC=cc
+CXX?=c++
+CC?=cc
 
 # notez-bien : in case of cross or distributed compilation, 
 # -march HAS TO BE CHANGED to match the target architecture.
