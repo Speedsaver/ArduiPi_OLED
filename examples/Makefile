@@ -30,9 +30,13 @@ CSOURCES = ${CPROGRAMS:=.c}
 CXX?=c++
 CC?=cc
 
-# board/device specific settings
+# board specific settings (only for Banana Pi)
 ifeq ($(I2C_DEV), )
-  I2C_DEV="/dev/i2c-2"
+  ifeq ($(BOARD), bananapi)
+    I2C_DEV="/dev/i2c-2"
+  else
+    I2C_DEV="/dev/i2c-0"
+  endif
 endif
 ifeq ($(OLED_TYPE), )
   OLED_TYPE="OLED_ADAFRUIT_I2C_128x64"
