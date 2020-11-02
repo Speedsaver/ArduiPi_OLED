@@ -42,15 +42,8 @@ LIB=libArduiPi_OLED
 LIBSUB=.7
 LIBNAME=$(LIB).so.2${LIBSUB}
 
-# notez-bien : in case of cross or distributed compilation, 
-# -march HAS TO BE CHANGED to match the target architecture.
-# I.e.: for A20 based machines (BananaPI, ...), should be :
-# -march=armv7-a -mfpu=vfpv3-d16 -mfloat-abi=hard
-CFLAGS=-march=native -Ofast -pipe
-
 CXX?=c++
 CC?=cc
-CFLAGS=$(CCFLAGS)
 
 # board specific settings (only for Banana Pi)
 ifeq ($(I2C_DEV), )

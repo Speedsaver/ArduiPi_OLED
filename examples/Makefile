@@ -30,12 +30,6 @@ CSOURCES = ${CPROGRAMS:=.c}
 CXX?=c++
 CC?=cc
 
-# notez-bien : in case of cross or distributed compilation, 
-# -march HAS TO BE CHANGED to match the target architecture.
-# I.e.: for A20 based machines (BananaPI, ...), should be :
-# -march=armv7-a -mfpu=vfpv3-d16 -mfloat-abi=hard
-CFLAGS=-march=native -Ofast -pipe -Wall
-
 # board/device specific settings
 ifeq ($(I2C_DEV), )
   I2C_DEV="/dev/i2c-2"
