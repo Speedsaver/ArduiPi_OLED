@@ -3,7 +3,7 @@
 #
 #	02/18/2013 	Charles-Henri Hallard (http://hallard.me)
 #							Modified for compiling and use on Raspberry ArduiPi Board
-#							LCD size and connection are now passed as arguments on 
+#							LCD size and connection are now passed as arguments on
 #							the command line (no more #define on compilation needed)
 #							ArduiPi project documentation http://hallard.me/arduipi
 #
@@ -24,7 +24,7 @@ PREFIX ?= /usr/local
 PROGRAMS = oled_demo oled_pattern
 SOURCES = ${PROGRAMS:=.cpp}
 
-CPROGRAMS = oled_cdemo oled_cpattern oled_ctrl
+CPROGRAMS = oled_cdemo oled_cpattern oled_ctrl oled_echo
 CSOURCES = ${CPROGRAMS:=.c}
 
 CXX?=c++
@@ -53,7 +53,7 @@ ${CPROGRAMS}: ${CSOURCES}
 	$(CC) $(CFLAGS) -Wall -I../ -L../ $@.c -o $@ -lArduiPi_OLED
 
 clean:
-	rm -rf $(PROGRAMS) $(CPROGRAMS) 
+	rm -rf $(PROGRAMS) $(CPROGRAMS)
 
 install: all
 	test -d $(DESTDIR)$(PREFIX) || mkdir $(DESTDIR)$(PREFIX)

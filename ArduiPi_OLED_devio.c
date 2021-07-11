@@ -2,21 +2,21 @@
  * Handle I2C
  *
  * 11/04/2018  jonesman
- * 	trying to convert IO to /dev/i2c
+ *   trying to convert IO to /dev/i2c
  *
  * 23/12/2018  Destroyedlolo (http://destroyedlolo.info)
- * 	The I2C device is passed in argument to lcd_dev_open()
+ *   The I2C device is passed in argument to lcd_dev_open()
  *
  * 21/09/2020  JG1UAA (https://github.com/jg1uaa)
- *	Rename dev_io.h -> ArduiPi_OLED_devio.h
- *	Add lcd_dev_default_device()
+ *  Rename dev_io.h -> ArduiPi_OLED_devio.h
+ *  Add lcd_dev_default_device()
  *
  * 26/09/2020  JG1UAA (https://github.com/jg1uaa)
- *	Add NetBSD I2C ioctl support
- *	thanks to http://www.yagoto-urayama.jp/~oshimaya/netbsd/rpi_i2c.html
+ *  Add NetBSD I2C ioctl support
+ *  thanks to http://www.yagoto-urayama.jp/~oshimaya/netbsd/rpi_i2c.html
  *
  * 04/10/2020  JG1UAA (https://github.com/jg1uaa)
- *	Add ARDUIPI_OLED_I2CDEV variable to change default I2C device
+ *  Add ARDUIPI_OLED_I2CDEV variable to change default I2C device
  */
 
 #include <stdio.h>
@@ -34,12 +34,12 @@
 #include <string.h>
 #include "ArduiPi_OLED_devio.h"
 
-int i2c_fd = -1;
+static int i2c_fd = -1;
 
 int lcd_dev_open(const char *dev) {
- 
+
     switch(DEV_TYPE) {
-        
+
         case DEV_TYPE_I2C:
             i2c_fd = open(dev, O_RDWR);
 #if defined(__linux__)
@@ -54,19 +54,19 @@ int lcd_dev_open(const char *dev) {
             }
 #endif
             return 1;
-            
+
         case DEV_TYPE_SPI:
-            
+
             break;
-        
+
     }
-    
+
     return 0;
-    
+
 }
 
 int lcd_dev_write(uint8_t* data, int len) {
-    
+
 #if defined(__NetBSD__)
     i2c_ioctl_exec_t cmd = {
         .iie_op = I2C_OP_WRITE_WITH_STOP,
@@ -79,7 +79,7 @@ int lcd_dev_write(uint8_t* data, int len) {
 #endif
 
     switch(DEV_TYPE) {
-        
+
         case DEV_TYPE_I2C:
 #if defined(__linux__)
             if(write(i2c_fd, data, len) != len) {
@@ -93,29 +93,29 @@ int lcd_dev_write(uint8_t* data, int len) {
             }
 #endif
             return len;
-            
+
         case DEV_TYPE_SPI:
-            
+
             break;
-        
+
     }
 
     return 0;
-    
+
 }
 
 void lcd_dev_close() {
- 
+
     switch(DEV_TYPE) {
-        
+
         case DEV_TYPE_I2C:
             close(i2c_fd);
             return;
-            
+
         case DEV_TYPE_SPI:
             break;
     }
-    
+
 }
 
 char *lcd_dev_default_device() {

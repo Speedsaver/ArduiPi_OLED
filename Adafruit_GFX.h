@@ -3,36 +3,37 @@
  basic graphics primitives (points, lines, circles, etc.). It needs
  to be paired with a hardware-specific library for each display
  device we carry (handling the lower-level functions).
- 
+
  Adafruit invests time and resources providing this open
  source code, please support Adafruit and open-source hardware
  by purchasing products from Adafruit!
- 
+
  Written by Limor Fried/Ladyada for Adafruit Industries.
  BSD license, check license.txt for more information.
  All text above must be included in any redistribution.
- 
-02/18/2013 	Charles-Henri Hallard (http://hallard.me)
-						Modified for compiling and use on Raspberry ArduiPi Board
-						LCD size and connection are now passed as arguments on 
-						the command line (no more #define on compilation needed)
-						ArduiPi project documentation http://hallard.me/arduipi
 
-	--- European time format ---
+02/18/2013   Charles-Henri Hallard (http://hallard.me)
+            Modified for compiling and use on Raspberry ArduiPi Board
+            LCD size and connection are now passed as arguments on
+            the command line (no more #define on compilation needed)
+            ArduiPi project documentation http://hallard.me/arduipi
+
+  --- European time format ---
 23/12/2018  Destroyedlolo (http://destroyedlolo.info)
-			correct missing include
+      correct missing include
 
 24/12/2018  Destroyedlolo (http://destroyedlolo.info)
-			Add vprintf
+      Add vprintf
 
-07/08/2019	Destroyedlolo (http://destroyedlolo.info)
-			Add patterns
+07/08/2019  Destroyedlolo (http://destroyedlolo.info)
+      Add patterns
  ******************************************************************/
 
 #ifndef _ADAFRUIT_GFX_H
 #define _ADAFRUIT_GFX_H
 
 #include <stdint.h>
+#include <stdio.h>
 #include "ArduiPi_OLED_lib.h"
 
 #define swap(a, b) { int16_t t = a; a = b; b = t; }
@@ -41,18 +42,20 @@
 class Adafruit_GFX {
  public:
 
-  //Adafruit_GFX();
+  Adafruit_GFX() {
+    //fprintf(stdout,"Default ctor Adafruit_GFX\n");
+  }
   // i have no idea why we have to formally call the constructor. kinda sux
   void constructor(int16_t w, int16_t h);
   virtual ~Adafruit_GFX(){};
   // this must be defined by the subclass
   virtual void drawPixel(int16_t x, int16_t y, uint16_t color) = 0;
   virtual void invertDisplay(boolean i);
-	
-	// the printf function
-	void printf( const char * format, ...);
-	void vprintf( const char * format, va_list ap);
-	void print( const char * string) ;
+
+  // the printf function
+  void printf( const char * format, ...);
+  void vprintf( const char * format, va_list ap);
+  void print( const char * string) ;
 
   // these are 'generic' drawing functions, so we can share them!
   virtual uint16_t drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint16_t color, uint16_t pattern=0xffff);
@@ -60,14 +63,14 @@ class Adafruit_GFX {
   virtual void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
   virtual void drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t pattern=0xffff);
   virtual void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t pattern=0xffff);
-		
-	void drawVerticalBargraph(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t percent) ;
-	void drawHorizontalBargraph(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t percent) ;
-	
+
+  void drawVerticalBargraph(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t percent) ;
+  void drawHorizontalBargraph(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color, uint16_t percent) ;
+
   virtual void fillScreen(uint16_t color);
 
   void drawCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color, uint16_t pattern=0xffff);
-  uint16_t drawCircleHelper(int16_t x0, int16_t y0,	int16_t r, uint8_t cornername, uint16_t color, uint16_t pattern=0xffff);
+  uint16_t drawCircleHelper(int16_t x0, int16_t y0,  int16_t r, uint8_t cornername, uint16_t color, uint16_t pattern=0xffff);
   void fillCircle(int16_t x0, int16_t y0, int16_t r, uint16_t color, uint16_t pattern=0xffff);
   void fillCircleHelper(int16_t x0, int16_t y0, int16_t r, uint8_t cornername, int16_t delta, uint16_t color, uint16_t pattern=0xffff);
 

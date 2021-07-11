@@ -4,10 +4,10 @@
 #
 #	02/18/2013 	Charles-Henri Hallard (http://hallard.me)
 #							Modified for compiling and use on Raspberry ArduiPi Board
-#							LCD size and connection are now passed as arguments on 
+#							LCD size and connection are now passed as arguments on
 #							the command line (no more #define on compilation needed)
 #							ArduiPi project documentation http://hallard.me/arduipi
-# 
+#
 # 07/26/2013	Charles-Henri Hallard
 #							modified name for generic library using different OLED type
 #
@@ -36,7 +36,7 @@ PREFIX?=/usr/local
 LIBDIR=$(DESTDIR)$(PREFIX)/lib
 INCDIR=$(DESTDIR)$(PREFIX)/include
 
-# lib name 
+# lib name
 LIB=libArduiPi_OLED
 # shared library name
 LIBSUB=.7
@@ -56,10 +56,10 @@ endif
 CFLAGS+=-DI2C_DEV='$(I2C_DEV)'
 
 # make all
-all: ArduiPi_OLED 
+all: ${LIBNAME}
 
 # Make the library
-ArduiPi_OLED: ArduiPi_OLED.o Adafruit_GFX.o ArduiPi_OLED_C.o ArduiPi_OLED_devio.o
+${LIBNAME}: ArduiPi_OLED.o Adafruit_GFX.o ArduiPi_OLED_C.o ArduiPi_OLED_devio.o
 	$(CXX) -shared -Wl,-soname,$(LIB).so.2 $(CFLAGS) $(LDFLAGS)  -o ${LIBNAME} $^
 	@ln -sf ${LIBNAME} ${LIB}.so.2
 	@ln -sf ${LIBNAME} ${LIB}.so
@@ -78,7 +78,7 @@ ArduiPi_OLED_C.o: ArduiPi_OLED_C.cpp ArduiPi_OLED_lib.h Adafruit_GFX.h ArduiPi_O
 	$(CXX) -Wall -fPIC -fno-rtti $(CCFLAGS) -c $^
 
 # Install the library to LIBPATH
-install: 
+install:
 	@echo "[Install Library]"
 	@if ( test ! -d ${LIBDIR} ) ; then mkdir -p ${LIBDIR} ; fi
 	@install -m 0755 ${LIBNAME} ${LIBDIR}
@@ -92,8 +92,8 @@ install:
 	@cp -f  ArduiPi_OLED_C.h ${INCDIR}
 	@cp -f  ArduiPi_OLED_lib.h ${INCDIR}
 
-# Uninstall the library 
-uninstall: 
+# Uninstall the library
+uninstall:
 	@echo "[Uninstall Library]"
 	@rm -f ${LIBDIR}/${LIB}.*
 
