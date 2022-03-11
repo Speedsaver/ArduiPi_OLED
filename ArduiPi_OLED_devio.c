@@ -66,6 +66,16 @@ int lcd_dev_open(const char *dev) {
 }
 
 int lcd_dev_write(uint8_t* data, int len) {
+    // doubtful if the device was opened, just silently return
+    if ( i2c_fd < 0 ) {
+        static int first = 1;
+        if ( first ) {
+            printf("I2C was not opened properly, fd=%d\n", i2c_fd);
+            printf("Bravely carrying on without a display");
+        }
+        first = 0;
+        return 0;
+    }
 
 #if defined(__NetBSD__)
     i2c_ioctl_exec_t cmd = {
