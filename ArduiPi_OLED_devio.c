@@ -35,6 +35,7 @@
 #include "ArduiPi_OLED_devio.h"
 
 static int i2c_fd = -1;
+static int failed = 0;
 
 int lcd_dev_open(const char *dev) {
 
@@ -66,16 +67,7 @@ int lcd_dev_open(const char *dev) {
 }
 
 int lcd_dev_write(uint8_t* data, int len) {
-    // doubtful if the device was opened, just silently return
-    if ( i2c_fd < 0 ) {
-        static int first = 1;
-        if ( first ) {
-            printf("I2C was not opened properly, fd=%d\n", i2c_fd);
-            printf("Bravely carrying on without a display");
-        }
-        first = 0;
-        return 0;
-    }
+    if ( failed ) return 0;
 
 #if defined(__NetBSD__)
     i2c_ioctl_exec_t cmd = {
@@ -93,8 +85,9 @@ int lcd_dev_write(uint8_t* data, int len) {
         case DEV_TYPE_I2C:
 #if defined(__linux__)
             if(write(i2c_fd, data, len) != len) {
-                printf("I2C write error : %s\r\n", strerror(errno));
-                    return 0;
+                printf("I2C write error : %s on fd=%d\r\n", strerror(errno), i2c_fd);
+                failed = 1;
+                return 0;
             }
 #elif defined(__NetBSD__)
             if(ioctl(i2c_fd, I2C_IOCTL_EXEC, &cmd) < 0) {
