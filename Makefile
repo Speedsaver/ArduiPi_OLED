@@ -64,18 +64,17 @@ ${LIBNAME}: ArduiPi_OLED.o Adafruit_GFX.o ArduiPi_OLED_C.o ArduiPi_OLED_devio.o
 	@ln -sf ${LIBNAME} ${LIB}.so.2
 	@ln -sf ${LIBNAME} ${LIB}.so
 
-# Library parts (use -fno-rtti flag to avoid link problem)
 ArduiPi_OLED.o: ArduiPi_OLED.cpp ArduiPi_OLED_devio.h ArduiPi_OLED_lib.h ArduiPi_OLED.h Adafruit_GFX.h
-	$(CXX) -Wall -fPIC -fno-rtti $(CCFLAGS) -c $^
+	$(CXX) -Wall -fPIC $(CCFLAGS) -c $^
 
 Adafruit_GFX.o: Adafruit_GFX.cpp ArduiPi_OLED_devio.h ArduiPi_OLED_lib.h
-	$(CXX) -Wall -fPIC -fno-rtti $(CCFLAGS) -c $^
+	$(CXX) -Wall -fPIC $(CCFLAGS) -c $^
 
 ArduiPi_OLED_devio.o: ArduiPi_OLED_devio.c ArduiPi_OLED_devio.h
 	$(CC) -Wall -fPIC $(CFLAGS) -c $^
 
 ArduiPi_OLED_C.o: ArduiPi_OLED_C.cpp ArduiPi_OLED_lib.h Adafruit_GFX.h ArduiPi_OLED.h ArduiPi_OLED_C.h ArduiPi_OLED_devio.h
-	$(CXX) -Wall -fPIC -fno-rtti $(CCFLAGS) -c $^
+	$(CXX) -Wall -fPIC $(CCFLAGS) -c $^
 
 # Install the library to LIBPATH
 install:
