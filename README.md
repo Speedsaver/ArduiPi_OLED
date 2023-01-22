@@ -12,11 +12,9 @@ Hardware installation procedure can be found in [Hallard's blog][2]. To make and
   - `PREFIX=` where the library will be installed (default `/usr/local`)
   - `CFLAGS=` to specify compiler option. The default one will rely on build host architecture **that may not be suitable for cross or distributed compilation**.
 * then build
-~~~~
-make clean
-make
-~~~~
-
+```
+git clone https://github.com/Speedsaver/ArduiPi_OLED.git && make clean && make
+```
 * and finally install **as root** (probably using `sudo`):
 ~~~~
 make install
@@ -28,10 +26,9 @@ CAUTION :
 - Again **the Makefile has to be changed if you're cross compiling or if you're using heterogeneous distributed compilation**.
 - SPI is not supported : some sequels of the previous code remain but may be cleaned in future release (but if someone wants to take care of SPI in a portable way).
 - I discovered lot of issues, misbehaviours in includes dependencies and in Makefile themselves. I corrected the most obvious ones but some work remains : if you're experiencing "*bizarre features*" ((tm) micro$oft), do
-~~~~
-make clean
-make
-~~~~
+```
+make clean && make
+```
 
 
 This version has been tested on a BananaPI running Gentoo using an SSD1306 0.96'' screen.
