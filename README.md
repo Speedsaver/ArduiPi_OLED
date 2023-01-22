@@ -13,13 +13,7 @@ Hardware installation procedure can be found in [Hallard's blog][2]. To make and
   - `CFLAGS=` to specify compiler option. The default one will rely on build host architecture **that may not be suitable for cross or distributed compilation**.
 * then build
 ```
-git clone https://github.com/Speedsaver/ArduiPi_OLED.git
-```
-```
-cd ArduiPi_OLED.git
-```
-```
-make
+git clone https://github.com/Speedsaver/ArduiPi_OLED.git && cd ArduiPi_OLED && make
 ```
 * and finally install **as root** (probably using `sudo`):
 ~~~~
